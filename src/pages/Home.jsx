@@ -2,6 +2,10 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Feature from '../components/Feature'
+import image from '../assets/back.png'
+import benzImg from '../assets/benz.jpg'
+
+
 
 function Home() {
     return (
@@ -10,19 +14,25 @@ function Home() {
 
             {/* front image */}
 
-            <div className="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
-                <div className="col-lg-6 px-0">
-                    <h1 className="display-4 fst-italic">Title of a longer featured blog post</h1>
-                    <p className="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
-                    <p className="lead mb-0"><a href="#" className="text-body-emphasis fw-bold">Continue reading...</a></p>
-                </div>
+            <div style={{
+                backgroundImage: `url(${image})`,
+                backgroundSize: "cover",
+                backgroundPosition: "top",
+                height: "700px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+            }}>
             </div>
+
             <Feature />
 
             {/* Explore more popular cars */}
 
             <div id="carouselExample" className="carousel slide">
+                <h2 className="text-center">EXPLORE MORE POPULAR CARS</h2>
                 <div className="carousel-inner">
+
 
                     {/* Slide 1 */}
                     <div className="carousel-item active">
@@ -122,28 +132,55 @@ function Home() {
                     <span className="visually-hidden">Next</span>
                 </button>
             </div>
+
+
             {/* 3steps image */}
-            <rect width="100%" height="100%" fill="var(--bs-secondary-bg)">
-                <image></image>
-            </rect>
+            {/* 3 steps section */}
+            <div className="container my-5">
+                <div className="d-flex justify-content-center align-items-stretch">
 
-            {/* 3 stps buttons*/}
-            <label className="list-group-item rounded-3 py-3" for="listGroupCheckableRadios1">
-                First radio
-                <span className="d-block small opacity-50">With support text underneath to add more detail</span> </label>
+                    {/* Left image */}
+                    <div className="me-4 " style={{ flex: "0.5 0 300px" }}>
+                        <img
+                            src={benzImg}
+                            alt="Car Steps"
+                            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                        />
+                    </div>
 
-            <label className="list-group-item rounded-3 py-3" for="listGroupCheckableRadios1">
-                First radio
-                <span className="d-block small opacity-50">With support text underneath to add more detail</span> </label>
+                    {/* Right side steps */}
+                    <div className="flex-grow-1  " style={{ maxWidth: "500px" }}>
+                        <h2 className="mb-4 text-center">RENT CARS IN 3 STEPS</h2>
 
-            <label className="list-group-item rounded-3 py-3" for="listGroupCheckableRadios1">
-                First radio
-                <span className="d-block small opacity-50">With support text underneath to add more detail</span> </label>
+                        <label className="list-group-item rounded-3 py-3 fw-bold text-center">
+                            CHOOSE DATE & LOCATION
+                            <span className="d-block small opacity-50 ">
+                                Pick your preferred date & place
+                            </span>
+                        </label>
 
+                        <label className="list-group-item rounded-3 py-3 mt-2 fw-bold text-center">
+                            BOOK YOUR CAR
+                            <span className="d-block small opacity-50">
+                                Reserve your car in seconds
+                            </span>
+                        </label>
+
+                        <label className="list-group-item rounded-3 py-3 mt-2 fw-bold text-center">
+                            SELECT TIME DURATION
+                            <span className="d-block small opacity-50">
+                                Choose how long you need it
+                            </span>
+                        </label>
+                    </div>
+
+                </div>
+            </div>
 
             {/* Customer feedback */}
 
-                        <div id="carouselExample" className="carousel slide">
+            <div id="carouselExample" className="carousel slide">
+                <h2 className="text-center">OUR CLIENTS FEEDBACKS</h2>
                 <div className="carousel-inner">
 
                     {/* Slide 1 */}
@@ -245,7 +282,7 @@ function Home() {
                 </button>
             </div>
 
-            
+
 
             <Footer />
 

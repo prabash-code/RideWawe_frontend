@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
-import axiosInstance from '../services/axiosInstance';
+import React, { useState } from "react";
+import axiosInstance from "../services/axiosInstance";
+import logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
 
 function Register() {
     const [name, setName] = useState("");
@@ -7,25 +9,19 @@ function Register() {
     const [password, setPassword] = useState("");
     const [phone, setPhone] = useState("");
     const [id, setId] = useState("");
-   
+
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log(name)
-        console.log(email)
-        console.log(password)
-        console.log(phone)
-        console.log(id)
+        e.preventDefault(); // 
 
         try {
             const payload = {
-                name: name,
-                email:email,
-                password:password,
-                phone:phone,
-                id:id
+                username: name,
+                email: email,
+                password: password,
+                phone: phone,
+                nic: id,
             };
 
-            // Use the axios instance
             const response = await axiosInstance.post("/user/register", payload);
             console.log("Response:", response.data);
         } catch (err) {
@@ -33,41 +29,119 @@ function Register() {
         }
     };
 
-
     return (
-        <div>
-            <form>
-                <img class="mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"></img>
-                <h1 class="h3 mb-3 fw-normal">Sign In </h1>
-                <div class="form-floating">
+        <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
+            <div
+                className="card shadow p-4"
+                style={{ width: "420px", borderRadius: "15px" }}
+            >
+                <form onSubmit={handleSubmit}>
+                    {/* Header */}
+                    <div className="d-flex align-items-center bg-warning rounded p-2 mb-3">
+                        <img
+                            src={logo}
+                            alt="RideWave Logo"
+                            style={{ width: "45px", height: "45px" }}
+                            className="me-2"
+                        />
+                        <div>
+                            <h5 className="mb-0 fw-bold text-dark">Create Account</h5>
+                            <small className="text-dark">
+                                Premier Car Rental Service In Sri Lanka
+                            </small>
+                        </div>
+                    </div>
 
-                    <input type="name" onChange={e => setName(e.target.value)} class="form-control" id="floatingName" placeholder="saman perera"></input>
-                    <label for="floatingInput">Name</label> </div> <div class="form-floating">
+                    {/* Name */}
+                    <div className="form-floating mb-3">
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="name"
+                            placeholder="Saman Perera"
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                        <label htmlFor="name">Full Name</label>
+                    </div>
 
-                    <input type="email" onChange={e=>setEmail(e.target.value)} class="form-control" id="floatingEmail" placeholder="name@example.com"></input>
-                    <label for="floatingInput">Email address</label> </div> <div class="form-floating">
+                    {/* Email */}
+                    <div className="form-floating mb-3">
+                        <input
+                            type="email"
+                            className="form-control"
+                            id="email"
+                            placeholder="name@example.com"
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <label htmlFor="email">Email address</label>
+                    </div>
 
-                    <input type="password" class="form-control" onChange={e=>setPassword(e.target.value)} id="floatingPassword" placeholder="Password">
-                    </input>
-                    <label for="floatingPassword">Password</label> </div> <div class="form-floating">
+                    {/* Password */}
+                    <div className="form-floating mb-3">
+                        <input
+                            type="password"
+                            className="form-control"
+                            id="password"
+                            placeholder="Password"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <label htmlFor="password">Password</label>
+                    </div>
 
-                    <input type="phone" onChange={e=>setPhone(e.target.value)} class="form-control" id="floatingPhone" placeholder="0771111111">
-                    </input>
-                    <label for="floatingPassword">Phone</label> </div> <div class="form-floating">
+                    {/* Phone */}
+                    <div className="form-floating mb-3">
+                        <input
+                            type="tel"
+                            className="form-control"
+                            id="phone"
+                            placeholder="0771234567"
+                            onChange={(e) => setPhone(e.target.value)}
+                        />
+                        <label htmlFor="phone">Phone Number</label>
+                    </div>
 
-                    <input type="id" onChange={e=>setId(e.target.value)} class="form-control" id="floatingId" placeholder="86592665V">
-                    </input>
-                    <label for="floatingPassword">Id</label> </div> <div class="form-floating">
+                    {/* NIC */}
+                    <div className="form-floating mb-3">
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="nic"
+                            placeholder="86592665V"
+                            onChange={(e) => setId(e.target.value)}
+                        />
+                        <label htmlFor="nic">NIC</label>
+                    </div>
 
-                </div>
+                    {/* select role */}
+                    <select className="form-select mb-3" id="state" required="">
+                        <option value="">ADMIN</option>
+                        <option>CUSTOMER</option> </select>
 
-                <button class="btn btn-primary w-100 py-2" onClick={e => handleSubmit(e)} type="submit">Sign Up</button>
-                <p class="mt-5 mb-3 text-body-secondary">© 2017–2025</p>
-            </form>
+                    {/* Button */}
 
+                    <div className="d-flex flex-column" style={{ gap: "10px" }}>
+                        <button className="btn btn-warning w-100 fw-bold py-2 ">
+                            Sign Up
+                        </button>
+
+                        <Link to="/Home">
+                            <button
+                                className="btn btn-outline-secondary w-100 fw-bold"
+                            >
+                                Back to Home
+                            </button>
+                        </Link>
+                    </div>
+
+
+                    {/* Footer */}
+                    <p className="text-center text-muted mt-4 mb-0">
+                        © 2025 RideWave
+                    </p>
+                </form>
+            </div>
         </div>
-    )
+    );
 }
 
-
-export default Register
+export default Register;

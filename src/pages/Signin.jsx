@@ -1,26 +1,86 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
+import logo from '../assets/logo.png';
 
 function Signin() {
+
+
   return (
-    <div>
-        <form>
-             <img class="mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"></img>
-              <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-               <div class="form-floating"> 
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"></input>
-                 <label for="floatingInput">Email address</label> </div> <div class="form-floating"> 
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                    </input> 
-                    <label for="floatingPassword">Password</label> </div> <div class="form-check text-start my-3"> 
-                        <input class="form-check-input" type="checkbox" value="remember-me" id="checkDefault"> 
-                        </input>
-                        <label class="form-check-label" for="checkDefault">
-Remember me
-</label> </div> <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
- <p class="mt-5 mb-3 text-body-secondary">© 2017–2025</p>
-  </form>
+    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
+      <div
+        className="card shadow p-4"
+        style={{ width: "400px", borderRadius: "15px" }}
+      >
+        {/* Title */}
+        <div className="d-flex align-items-center bg-warning rounded p-2 mb-3">
+          <img
+            src={logo}
+            alt="RideWave Logo"
+            style={{ width: "45px", height: "45px", objectFit: "contain" }}
+            className="me-2"
+          />
+          <div>
+            <h5 className="mb-0 fw-bold text-dark">Welcome Back</h5>
+            <small className="text-dark">
+              Premier Car Rental Service In Sri Lanka
+            </small>
+          </div>
+        </div>
+
+        {/* Email */}
+        <div className="form-floating mb-3">
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            placeholder="name@example.com"
+          />
+          <label htmlFor="email">Email address</label>
+        </div>
+
+        {/* Password */}
+        <div className="form-floating mb-3">
+          <input
+            type="password"
+            className="form-control"
+            id="password"
+            placeholder="Password"
+          />
+          <label htmlFor="password">Password</label>
+        </div>
+
+        {/* Remember me */}
+        <div className="form-check mb-3">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            id="remember"
+          />
+          <label className="form-check-label" htmlFor="remember">
+            Remember me
+          </label>
+        </div>
+
+        {/* Buttons */}
+        <button className="btn btn-warning w-100 mb-2 fw-bold" >
+          Sign In
+        </button>
+
+        <Link to="/Home">
+          <button
+            className="btn btn-outline-secondary w-100 fw-bold"
+          >
+            Back to Home
+          </button>
+        </Link>
+
+        {/* Footer */}
+        <p className="text-center text-muted mt-4 mb-0">
+          © 2025 RideWave
+        </p>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Signin
+export default Signin;
