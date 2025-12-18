@@ -32,7 +32,7 @@ function App({ show }) {
   const [count, setCount] = useState(0)
   return (
     <>
-<CustomerHome/>
+<Bookings/>
 
 
 
