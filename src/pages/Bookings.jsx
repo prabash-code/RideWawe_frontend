@@ -23,27 +23,26 @@ function Bookings() {
 
       <div><p>Bookings</p></div>
 
-      <table style={{border:"1"}}>
-        <tr>
-          <th>Registration Number</th>
-          <th> Start Date</th>
-          <th>End Date</th>
-          <th>Amount</th>
-          <th>Status</th>
-          <th>Created Date</th>
-          <th>Update Date</th>
-        </tr>
+      <div className="container my-5">
+        <table className="table table-striped table-bordered">
+          <thead className="table-dark">
+            <tr>
+              <th>Booking Id</th>
+              <th>Registraton Number</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Status</th>
+              <th>Total Amount</th>
+              <th>Created At</th>
+              <th>Updated At</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/*add body here  */}
+          </tbody>
+        </table>
 
-        <tr>
-          <td>as</td>
-          <td>b</td>
-          <td>d</td>
-          <td>c</td>
-          <td>r</td>
-          <td>e</td>
-          <td>f</td>
-        </tr>
-      </table>
+      </div>
       <Footer />
     </>
 

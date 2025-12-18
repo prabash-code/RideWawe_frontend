@@ -1,7 +1,7 @@
 import React from 'react'
 import AdminNavbar from '../components/AdminNavbar'
 
-function ManageVehicles() {
+function AdminManageVehicles() {
   return (
     <>
     <AdminNavbar/>
@@ -11,4 +11,4 @@ function ManageVehicles() {
   )
 }
 
-export default ManageVehicles 
+export default AdminManageVehicles 
