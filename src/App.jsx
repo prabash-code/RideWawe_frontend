@@ -13,7 +13,7 @@ import Contact from './pages/Contact'
 import Signin from './pages/Signin'
 import Register from './pages/Register'
 import AdminHome from './pages/AdminHome'
-import AdminBookings from './pages/AdminBookings'
+import AdminBookings from './pages/Admin/AdminBookings'
 import ManageVehicles from './pages/ManageVehicles'
 import AdminPayments from './pages/AdminPayments'
 import AdminReports from './pages/AdminReports'
@@ -30,7 +30,10 @@ function App({ show }) {
   const [count, setCount] = useState(0)
   return (
     <>
-      <AddNewAdmin/>
+      <AdminBookings/>
+
+
+
 
     </>
   )
