@@ -23,17 +23,14 @@ import CustomerPayments from './pages/CustomerPayments'
 import ForgotPw from './pages/ForgotPw'
 import ChangePw from './pages/ChangePw'
 import Payments from './pages/payments'
-
-
-
-
+import AddNewAdmin from './pages/AddNewAdmin'
 
 
 function App({ show }) {
   const [count, setCount] = useState(0)
   return (
     <>
-      <Payments />
+      <AddNewAdmin/>
 
     </>
   )
