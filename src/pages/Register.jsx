@@ -46,7 +46,7 @@ function Register() {
                         />
                         <div>
                             <h5 className="mb-0 fw-bold text-dark">Create Account</h5>
-                            <small className="text-dark">
+                            <small className="text-dark fw-bold">
                                 Premier Car Rental Service In Sri Lanka
                             </small>
                         </div>

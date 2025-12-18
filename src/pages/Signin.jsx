@@ -21,7 +21,7 @@ function Signin() {
           />
           <div>
             <h5 className="mb-0 fw-bold text-dark">Welcome Back</h5>
-            <small className="text-dark">
+            <small className="text-dark fw-bold">
               Premier Car Rental Service In Sri Lanka
             </small>
           </div>
@@ -59,12 +59,16 @@ function Signin() {
           <label className="form-check-label" htmlFor="remember">
             Remember me
           </label>
+          <Link to="/ForgotPw" part="" style={{ padding: "70px" }}>forgetEmail</Link>
+
         </div>
 
         {/* Buttons */}
+
         <button className="btn btn-warning w-100 mb-2 fw-bold" >
           Sign In
         </button>
+
 
         <Link to="/Home">
           <button
