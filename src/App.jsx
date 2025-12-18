@@ -22,6 +22,7 @@ import CustomerBookings from './pages/CustomerBookings'
 import CustomerPayments from './pages/CustomerPayments'
 import ForgotPw from './pages/ForgotPw'
 import ChangePw from './pages/ChangePw'
+import Payments from './pages/payments'
 
 
 
@@ -32,13 +33,9 @@ function App({ show }) {
   const [count, setCount] = useState(0)
   return (
     <>
-<Bookings/>
+      <Payments />
 
-
-
-
-      
-    </> 
+    </>
   )
 }
 
