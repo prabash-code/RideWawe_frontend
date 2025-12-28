@@ -8,22 +8,47 @@ function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [phone, setPhone] = useState("");
-    const [id, setId] = useState("");
+    const [nic, setNic] = useState("");
+    const [role, setRole] = useState("");
+    const [valid, setIsFormValid] = useState("");
+
+
+    useEffect(() => {
+        const validateForm = () => {
+            return (
+                name.trim() !== "" &&
+                email.trim() !== "" &&
+                password.trim() !== "" &&
+                phone.trim() !== "" &&
+                nic.trim() !== "" &&
+                role !== ""
+            );
+        };
+
+        setIsFormValid(validateForm());
+    }, [name, email, password, phone, nic, role]);
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // 
+        e.preventDefault();
 
         try {
             const payload = {
                 username: name,
                 email: email,
                 password: password,
+                nic: nic,
                 phone: phone,
-                nic: id,
+                role: role
             };
 
-            const response = await axiosInstance.post("/user/register", payload);
+            const response = await axiosInstance.post("/user-control/register", payload);
             console.log("Response:", response.data);
+            // clear form
+            setName("");
+            setEmail("");
+            setPassword("");
+            setPhone("");
+            setNic("");
         } catch (err) {
             console.error("Error:", err);
         }
@@ -107,15 +132,21 @@ function Register() {
                             className="form-control"
                             id="nic"
                             placeholder="86592665V"
-                            onChange={(e) => setId(e.target.value)}
+                            onChange={(e) => setNic(e.target.value)}
                         />
                         <label htmlFor="nic">NIC</label>
                     </div>
 
                     {/* select role */}
-                    <select className="form-select mb-3" id="state" required="">
+                    <select className="form-select mb-3"
+                        id="state"
+                        required=""
+                        onChange={(e) => setRole(e.target.value)
+
+                        }>
                         <option value="">ADMIN</option>
-                        <option>CUSTOMER</option> </select>
+                        <option>USER</option> </select>
+
 
                     {/* Button */}
 

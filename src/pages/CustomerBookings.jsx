@@ -5,9 +5,10 @@ function CustomerBookings() {
     return (
         <>
             <CustomerNavbar />
-            <div>CustomerBookings</div>
+            <div>
+                CustomerBookings
+            </div>
         </>
-
     )
 }
 

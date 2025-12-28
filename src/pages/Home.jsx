@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Feature from '../components/Feature'
@@ -8,10 +8,17 @@ import benzImg from '../assets/benz.jpg'
 
 
 function Home() {
+
+    const[car,setCar]=useState()
+
+    useEffect(()=>{
+
+
+    },[]);
+
     return (
         <div>
             <Navbar />
-
             {/* front image */}
 
             <div style={{
@@ -33,7 +40,6 @@ function Home() {
                 <h2 className="text-center">EXPLORE MORE POPULAR CARS</h2>
                 <div className="carousel-inner">
 
-
                     {/* Slide 1 */}
                     <div className="carousel-item active">
                         <div className="d-flex justify-content-center gap-3">
@@ -41,7 +47,7 @@ function Home() {
                             <div className="card" style={{ width: '18rem' }}>
                                 <img src="..." className="card-img-top" alt="..." />
                                 <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
+                                    <h5 className="card-title">Sedan</h5>
                                     <p className="card-text">Some quick example text to build on the card title.</p>
                                     <a href="#" className="btn btn-primary">Go somewhere</a>
                                 </div>
@@ -50,7 +56,7 @@ function Home() {
                             <div className="card" style={{ width: '18rem' }}>
                                 <img src="..." className="card-img-top" alt="..." />
                                 <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
+                                    <h5 className="card-title">Suv</h5>
                                     <p className="card-text">Some quick example text to build on the card title.</p>
                                     <a href="#" className="btn btn-primary">Go somewhere</a>
                                 </div>
@@ -59,7 +65,7 @@ function Home() {
                             <div className="card" style={{ width: '18rem' }}>
                                 <img src="..." className="card-img-top" alt="..." />
                                 <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
+                                    <h5 className="card-title">Luxuary</h5>
                                     <p className="card-text">Some quick example text to build on the card title.</p>
                                     <a href="#" className="btn btn-primary">Go somewhere</a>
                                 </div>
@@ -68,7 +74,7 @@ function Home() {
                             <div className="card" style={{ width: '18rem' }}>
                                 <img src="..." className="card-img-top" alt="..." />
                                 <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
+                                    <h5 className="card-title">Van</h5>
                                     <p className="card-text">Some quick example text to build on the card title.</p>
                                     <a href="#" className="btn btn-primary">Go somewhere</a>
                                 </div>
@@ -119,7 +125,6 @@ function Home() {
 
                         </div>
                     </div>
-
                 </div>
 
                 {/* Controls */}
@@ -265,7 +270,6 @@ function Home() {
                                     <a href="#" className="btn btn-primary">Go somewhere</a>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -281,9 +285,6 @@ function Home() {
                     <span className="visually-hidden">Next</span>
                 </button>
             </div>
-
-
-
             <Footer />
 
         </div>

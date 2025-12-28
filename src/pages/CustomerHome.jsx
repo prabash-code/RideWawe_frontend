@@ -3,7 +3,6 @@ import CustomerNavbar from '../components/CustomerNavbar';
 import Feature from '../components/Feature';
 import Footer from '../components/Footer';
 import image from '../assets/back.png';
-import { Button } from 'bootstrap';
 
 function CustomerHome() {
   return (
@@ -22,9 +21,6 @@ function CustomerHome() {
           justifyContent: "center",
         }}
       ></div>
-
-
-
 
 {/* Search card */}
       <div id="carouselExample" className="carousel slide" data-bs-ride="carousel">
@@ -48,7 +44,6 @@ function CustomerHome() {
                   <a href="#" className="btn btn-primary">Go somewhere</a>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -74,7 +69,6 @@ function CustomerHome() {
                   <a href="#" className="btn btn-primary">Go somewhere</a>
                 </div>
               </div>
-
             </div>
           </div>
 
@@ -90,7 +84,6 @@ function CustomerHome() {
                   <a href="#" className="btn btn-primary">Go somewhere</a>
                 </div>
               </div>
-
             </div>
           </div>
         </div>

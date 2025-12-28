@@ -1,49 +1,64 @@
 import React from 'react'
+import sedan from '../assets/sedan.jpg'
+import suv from '../assets/suv.jpg'
+import van from '../assets/van.jpg'
+import luxury from '../assets/luxury-cars.jpg'
+import sport from '../assets/sport-car.jpg'
+import cross from '../assets/crossover.jpg'
 
 function Feature() {
     return (
         <div>
             <h2 className="text-center">FEATURED CATEGORIES</h2>
             <div className="row g-4 py-5 row-cols-1 row-cols-lg-3">
-                <div className="feature col">
-                    <div className="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
-                        <svg className="bi" width="1em" height="1em" aria-hidden="true"><use xlink:href="#collection"></use></svg>
-                    </div> <h3 className="fs-2 text-body-emphasis">Featured title</h3>
-                    <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-                    <a href="#" className="icon-link">
-                        Call to action
-                        <svg className="bi" aria-hidden="true">
-                            <use xlink:href="#chevron-right"></use></svg> </a>
+
+                <div class="card" style={{ width: "18rem" }}>
+                    <img src={sedan} class="card-img-top" alt="..." />
+                    <div class="card-body">
+                        <h5 class="card-title">SEDAN</h5>
+                        <a href="#" class="btn btn-primary"> Go</a>
+                    </div>
                 </div>
 
-                <div className="feature col"> <div className="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
-                    <svg className="bi" width="1em" height="1em" aria-hidden="true"><use xlink:href="#people-circle"></use></svg>
-                </div>
-                    <h3 className="fs-2 text-body-emphasis">Featured title</h3> <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-                    <a href="#" className="icon-link">
-                        Call to action
-                        <svg className="bi" aria-hidden="true"><use xlink:href="#chevron-right"></use></svg> </a>
-                </div>
-
-
-                <div className="feature col"> <div className="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
-                    <svg className="bi" width="1em" height="1em" aria-hidden="true"><use xlink:href="#people-circle"></use></svg>
-                </div>
-                    <h3 className="fs-2 text-body-emphasis">Featured title</h3> <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-                    <a href="#" className="icon-link">
-                        Call to action
-                        <svg className="bi" aria-hidden="true"><use xlink:href="#chevron-right"></use></svg> </a>
+                <div class="card" style={{ width: "18rem" }}>
+                    <img src={suv} class="card-img-top" alt="..." />
+                    <div class="card-body">
+                        <h5 class="card-title">SUV</h5>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
                 </div>
 
-                <div className="feature col"> <div className="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
-                    <svg className="bi" width="1em" height="1em" aria-hidden="true">
-                        <use xlink:href="#toggles2"></use></svg> </div>
-                    <h3 className="fs-2 text-body-emphasis">Featured title</h3>
+                <div class="card" style={{ width: "18rem" }}>
+                    <img src={luxury} class="card-img-top" alt="..." />
+                    <div class="card-body">
+                        <h5 class="card-title">LUXURY CARS</h5>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
 
-                    <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-                    <a href="#" className="icon-link">
-                        Call to action
-                        <svg className="bi" aria-hidden="true"><use xlink:href="#chevron-right"></use></svg> </a> </div>
+                <div class="card" style={{ width: "18rem" }}>
+                    <img src={sport} class="card-img-top" alt="..." />
+                    <div class="card-body">
+                        <h5 class="card-title">SPORT CARS</h5>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+
+                <div class="card" style={{ width: "18rem" }}>
+                    <img src={van} class="card-img-top" alt="..." />
+                    <div class="card-body">
+                        <h5 class="card-title">VANS</h5>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+                <div class="card" style={{ width: "18rem" }}>
+                    <img src={cross} class="card-img-top" alt="..." />
+                    <div class="card-body">
+                        <h5 class="card-title">CROSSOVER</h5>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+
             </div>
         </div>
     )
