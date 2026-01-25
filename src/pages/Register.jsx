@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axiosInstance from "../services/axiosInstance";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 function Register() {
     const [name, setName] = useState("");
@@ -42,15 +43,19 @@ function Register() {
             };
 
             const response = await axiosInstance.post("/user-control/register", payload);
-            console.log("Response:", response.data);
+            //console.log("Response:", response.data);
+
             // clear form
+
             setName("");
             setEmail("");
             setPassword("");
             setPhone("");
             setNic("");
+
         } catch (err) {
             console.error("Error:", err);
+           
         }
     };
 
@@ -144,7 +149,7 @@ function Register() {
                         onChange={(e) => setRole(e.target.value)
 
                         }>
-                        <option value="">ADMIN</option>
+                       
                         <option>USER</option> </select>
 
 
@@ -163,7 +168,6 @@ function Register() {
                             </button>
                         </Link>
                     </div>
-
 
                     {/* Footer */}
                     <p className="text-center text-muted mt-4 mb-0">

@@ -1,9 +1,6 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import axios from 'axios'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -12,7 +9,6 @@ import Packages from './pages/Packages'
 import Contact from './pages/Contact'
 import Signin from './pages/Signin'
 import Register from './pages/Register'
-import AdminHome from './pages/AdminHome'
 import AdminBookings from './pages/AdminBookings'
 import AdminPayments from './pages/AdminPayments'
 import AdminReports from './pages/AdminReports'
@@ -21,9 +17,11 @@ import CustomerBookings from './pages/CustomerBookings'
 import CustomerPayments from './pages/CustomerPayments'
 import ForgotPw from './pages/ForgotPw'
 import ChangePw from './pages/ChangePw'
-import Payments from './pages/Payments'
-import AddNewAdmin from './pages/AddNewAdmin'
 import AdminManageVehicles from './pages/AdminManageVehicles'
+import AdminHome from './pages/AdminHome'
+import CarListning from './pages/CarListning'
+
+
 
 function App({ show }) {
 
@@ -42,16 +40,15 @@ function App({ show }) {
 
           {/* admin */}
 
-          <Route path='/HomeAdmin' element={<AdminHome />} />
+          <Route path='/Admin' element={<AdminHome/>} />
           <Route path='/BookingsAdmin' element={<AdminBookings />} />
           <Route path='/ManageAdmin' element={<AdminManageVehicles />} />
           <Route path='/PaymentsAdmin' element={<AdminPayments />} />
           <Route path='/ReportsAdmin' element={<AdminReports />} />
-          <Route path='/LogoutAdmin' element={<Home />} />
+          <Route path='/Home' element={<Home/>} />
 
           {/* Customer */}
-          <Route path='/' element={<CustomerHome />} />
-          <Route path='/HomeCustomer' element={<CustomerHome />} />
+         <Route path='/CustomerHome' element={<CustomerHome/>} />
           <Route path='/BookingsCustomer' element={<CustomerBookings />} />
           <Route path='/PaymentsCustomer' element={<CustomerPayments />} />
           <Route path='/LogoutCustomer' element={<Home />} />
@@ -62,11 +59,12 @@ function App({ show }) {
           {/* Change Password */}
           <Route path='/ChangePw' element={<ChangePw/>} />
 
-          {/* customer home */}
-           <Route path='/CustomerHome' element={<CustomerHome/>} />
-
-           {/*  */}
-
+          {/* route to  car listnings */}
+          <Route path='/CarListning' element={<CarListning/>} />
+          {/* add vehicle */}
+            <Route path='/AdminManageVehicles' element={<AdminManageVehicles/>} />
+            
+         
         </Routes>
       </Router>
     </>

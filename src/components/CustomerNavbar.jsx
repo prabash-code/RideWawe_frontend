@@ -20,7 +20,7 @@ function CustomerNavbar() {
 
           {/* Menu */}
           <ul className="nav mb-2 mb-md-0">
-            <li><a href="" className="nav-link px-2 text-secondary">Home</a></li>
+            <li><a href="/CustomerHome" className="nav-link px-2 text-secondary">Home</a></li>
             <li><a href="/BookingsCustomer" className="nav-link px-2 text-white">My Booking</a></li>
             <li><a href="/PaymentsCustomer" className="nav-link px-2 text-white">Payments</a></li>
           </ul>
