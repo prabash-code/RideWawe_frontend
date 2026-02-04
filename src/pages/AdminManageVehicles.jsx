@@ -187,31 +187,39 @@ function AdminManageVehicles() {
             <div className="row g-4 mb-4">
               <div className="col-md-6">
                 <label className="text-light mb-2 small fw-bold"
-                  onChange={(e) => setBrand(e.target.value)}
+
                 >Brand</label>
-                <input type="text" className="form-control custom-dark-input" id="brand" placeholder="Brand" />
+                <input type="text" className="form-control custom-dark-input" id="brand" placeholder="Brand" onChange={(e) => setBrand(e.target.value)} />
               </div>
 
               <div className="col-md-6">
                 <label className="text-light mb-2 small fw-bold"
-                  onChange={(e) => setModel(e.target.value)} >
+
+                  placeholder="ex:corolla">
                   Model
                 </label>
-                <input type="text" className="form-control custom-dark-input" id="model" placeholder="Model" />
+                <input type="text" className="form-control custom-dark-input" id="model" placeholder="ex:Corolla" onChange={(e) => setModel(e.target.value)} />
               </div>
             </div>
 
             {/* Registration & Year Info - Row with 3 Columns */}
             <div className="row g-4 mb-4">
               <div className="col-md-4">
-                <label className="text-light mb-2 small fw-bold" onChange={(e) => setRegNo(e.target.value)}>
+                <label className="text-light mb-2 small fw-bold" >
                   Registration Number
+                  <input type="text" className="form-control custom-dark-input" id="brand" placeholder="RegisterNumber"onChange={(e) => setRegNo(e.target.value)}></input>
                 </label>
+              </div>
+
+              <div className="row g-4 mb-4">
+                <div className="col-md-4"></div>
+
                 <select className="form-select custom-dark-input" id="fuelType" onChange={(e) => setFuelType(e.target.value)}>
                   <option selected disabled>Fuel Type</option>
-                  <option value="Petrol">Petrol</option>
-                  <option value="Diesel">Diesel</option>
-                  <option value="Diesel">Electric</option>
+                  <option value="Petrol"><PETROL></PETROL></option>
+                  <option value="Diesel">DIESEL</option>
+                  <option value="Diesel">ELECTRIC</option>
+                  <option value="Diesel">HYBRID</option>
                 </select>
               </div>
               <div className="col-md-4">
@@ -245,22 +253,28 @@ function AdminManageVehicles() {
                   <option selected disabled>Daily Rental</option>
                   <option>$50</option>
                   <option>$100</option>
+                  <option>$200</option>
                 </select>
               </div>
               <div className="col-md-4">
                 <label className="text-light mb-2 small fw-bold">Vehicle Type</label>
                 <select className="form-select custom-dark-input" id="vehicleType" onChange={(e) => setVehicleType(e.target.value)}>
-                  <option selected disabled>Sedan</option>
+                  <option selected disabled>Select type</option>
+                  <option selected >SEDAN</option>
                   <option>SUV</option>
-                  <option>Luxury</option>
+                  <option>LUXARY</option>
+                   <option>VAN</option>
+                    <option>SPORT</option>
+                     <option>CROSSOVER</option>
                 </select>
               </div>
               <div className="col-md-4">
                 <label className="text-light mb-2 small fw-bold">Vehicle Status</label>
                 <select className="form-select custom-dark-input" id="status" onChange={(e) => setStatus(e.target.value)}>
-                  <option selected disabled>Available</option>
-                  <option>Rented</option>
-                  <option>Maintenance</option>
+                  <option selected disabled>Select</option>
+                  <option selected>AVAIABLE</option>
+                  <option>RENTED</option>
+                  <option>MAINTENANCE</option>
                 </select>
               </div>
             </div>
@@ -269,8 +283,9 @@ function AdminManageVehicles() {
             <div className="row g-4 mb-4">
               <div className="col-md-6">
                 <label className="text-light mb-2 small fw-bold">Description of Vehicle</label>
-                <select className="form-select custom-dark-input" id="descType" onChange={(e) => setDescription(e.target.value)}>
-                  <option>All</option>
+                <select className="form-select custom-dark-input"  id="descType" onChange={(e) => setDescription(e.target.value)}>
+                  <option selected disabled>Select Default</option>
+                  <option>Full option</option>
                 </select>
               </div>
             </div>
@@ -286,10 +301,10 @@ function AdminManageVehicles() {
             </div>
           </form>
         </div>
-      </div>
+      </div >
 
       {/* Custom Scoped CSS */}
-      <style>{`
+      < style > {`
         .custom-dark-input {
           background-color: #2a2a2a !important;
           border: 1px solid #444 !important;
@@ -311,8 +326,8 @@ function AdminManageVehicles() {
           background-color: #dba514 !important;
           transform: scale(1.02);
         }
-      `}</style>
-    </div>
+      `}</style >
+    </div >
   );
 }
 
