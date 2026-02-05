@@ -1,52 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axiosInstance from "../services/axiosInstance";
 
 function CarListning() {
 
-  const cars = [
-    {
-      id: 1,
-      name: "BMW 3 Series",
-      category: "Sedan",
-      price: 120,
-      image: "https://images.unsplash.com/photo-1549924231-f129b911e442"
-    },
-    {
-      id: 2,
-      name: "Audi A6",
-      category: "Luxury",
-      price: 150,
-      image: "https://images.unsplash.com/photo-1617814076668-9b82c1b53c63"
-    },
-    {
-      id: 3,
-      name: "Mercedes C-Class",
-      category: "Sedan",
-      price: 140,
-      image: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c6"
-    },
-    {
-      id: 4,
-      name: "Tesla Model 3",
-      category: "Electric",
-      price: 160,
-      image: "https://images.unsplash.com/photo-1619767886558-efdc259cde1a"
-    },
-    {
-      id: 5,
-      name: "Toyota Corolla",
-      category: "Economy",
-      price: 70,
-      image: "https://images.unsplash.com/photo-1619682817481-e994891cd1f3"
-    },
-    {
-      id: 6,
-      name: "Honda Civic",
-      category: "Economy",
-      price: 75,
-      image: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c6"
+  const [cars, setCars] = useState([]);
+
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        const res = await axiosInstance.get("/cars");
+        const carsWithImage=res.data.map((car)=>({...car,
+          imageUrl:car.imageBase64 
+          ?`data:${car.imageType};base64,${car.imageBase64}` 
+          :"/no-image.png",
+        }));
+        
+        setCars(carsWithImage);
+      } catch {
+        alert("Failed to fetch cars. Try again.");
+      }
     }
-  ];
+    fetchCars();
+
+  }, []);
+
+
+  const handleDelete = async (id) => {
+    try {
+      const res = await axiosInstance.delete(`cars/${id}`);
+      if (res.status === 200) {
+        alert("Delete  Successfully!"); 
+        setCars(cars.filter(car => car.id !== id));
+       
+
+      }
+      else {
+        alert("Failed to delete vehicle. Please try again.");
+
+      }
+    } catch {
+      alert("An error occurred. Please try again.");
+    }
+
+  }
 
   return (
     <div className="bg-dark text-white min-vh-100 p-4">
@@ -86,28 +83,29 @@ function CarListning() {
             <div className="card bg-black text-white border-0 h-100 rounded-4 shadow">
 
               <img
-                src={car.image}
-                alt={car.name}
+                src={car. imageUrl}
+                alt={car.brand}
                 className="card-img-top rounded-top-4"
                 style={{ height: "200px", objectFit: "cover" }}
               />
 
               <div className="card-body">
-                <h5 className="fw-bold">{car.name}</h5>
-                <p className="text-secondary mb-2">{car.category}</p>
+                <h5 className="fw-bold">{car.brand}</h5>
+                <p className="text-secondary mb-2">{car.type}</p>
                 <h6 className="text-warning fw-bold">
-                  ${car.price} / day
+                  ${car.dailyRentalPrice} / day
                 </h6>
               </div>
 
               <div className="card-footer bg-transparent border-0 d-flex gap-2">
                 <Link
-                  to="/AdminManageVehicles"
+                  to={`/ManageAdmin`}
                   className="btn btn-outline-light w-50 text-center"
                 >
                   Update
                 </Link>
-                <button className="btn btn-warning w-50 fw-semibold">
+
+                <button className="btn btn-warning w-50 fw-semibold" onClick={()=>handleDelete(car.id)}>
                   Delete
                 </button>
               </div>
@@ -116,7 +114,6 @@ function CarListning() {
           </div>
         ))}
       </div>
-
     </div>
   );
 }

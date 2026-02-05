@@ -1,22 +1,57 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminNavbar from "../components/AdminNavbar";
 import axiosInstance from "../services/axiosInstance";
 
 function AdminManageVehicles() {
 
-
+  const [cars, setCars] = useState([]);
+  const [carId, setCarId] = useState("");
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
   const [regNo, setRegNo] = useState("");
   const [fuelType, setFuelType] = useState("");
-  const [year, setYear] = useState("");
-  const [seatingCapacity, setSeatCapacity] = useState("");
-  const [rental, setRental] = useState("");
-  const [vehicleType, setVehicleType] = useState("");
+  const [year, setYear] = useState(0);
+  const [seatingCapacity, setSeatCapacity] = useState(0);
+  const [rental, setRental] = useState(0);
+  const [type, setVehicleType] = useState("");
   const [status, setStatus] = useState("");
   const [description, setDescription] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
+
+
+
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        const res = await axiosInstance.get("/cars");
+        setCars(res.data)
+      } catch (err) {
+        console.error("FAiled to fetch cars :", err);
+      }
+    };
+    fetchCars();
+  }, []);
+
+
+  const handleSelectCar = (car) => {
+
+    setCarId(car.id);
+    setBrand(car.brand || "");
+    setModel(car.model || "");
+    setRegNo(car.registrationNumber || "");
+    setFuelType(car.fuelType || "");
+    setYear(car.year || 0);
+    setSeatCapacity(car.seatingCapacity || 0);
+    setRental(car.dailyRentalPrice || 0);
+    setVehicleType(car.type || "");
+    setStatus(car.status || "");
+    setDescription(car.description || "");
+    setImagePreview(car.imageUrl || "");
+    setImageFile(null);
+  };
+
+
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -30,25 +65,42 @@ function AdminManageVehicles() {
   const handleAdd = async (e) => {
     e.preventDefault();
 
-    const payload = {
-      brand: brand,
-      type: vehicleType,
-      model: model,
-      status: status,
-      registrationNumber: regNo,
-      year: year,
-      fuelType: fuelType,
-      seatingCapacity: seatingCapacity,
-      dailyRentalPrice: rental,
-      description: description,
-      imageUrl: imageFile
-    }
+    const formData = new FormData();
+    formData.append("brand", brand);
+    formData.append("type", type);
+    formData.append("registrationNumber", regNo);
+    formData.append("year", parseInt(year));
+    formData.append("fuelType", fuelType);
+    formData.append("seatingCapacity", parseInt(seatingCapacity));
+    formData.append("dailyRentalPrice", parseFloat(rental));
+    formData.append("description", description);
+    formData.append("model", model);
+    formData.append("status", status);
+    formData.append("image", imageFile);
+
+    // const payload = {
+    //   brand: brand,
+    //   type: vehicleType,
+    //   registrationNumber: regNo,
+    //   year:parseInt(year),
+    //   fuelType: fuelType,
+    //   seatingCapacity: parseInt(seatingCapacity),
+    //   dailyRentalPrice: parseFloat(rental),
+    //   description: description,
+    //   model: model,
+    //   status: status,    
+    //   imageUrl: imageFile
+    // }
 
     try {
-      const response = await axiosInstance.post("/cars", payload);
+      const response = await axiosInstance.post("/cars", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-      if (response.ok) {
-        const result = await response.json();
+      if (response.status === 200) {
+        const result = await response.data;
         console.log("Vehicle added successfully:", result);
         alert("Vehicle added successfully!");
         resetForm();
@@ -67,28 +119,54 @@ function AdminManageVehicles() {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    const payload = {
-      brand: brand,
-      type: vehicleType,
-      model: model,
-      status: status,
-      registrationNumber: regNo,
-      year: year,
-      fuelType: fuelType,
-      seatingCapacity: seatingCapacity,
-      dailyRentalPrice: rental,
-      description: description,
-      imageUrl: imageFile
+
+    if (!carId) {
+      alert("Select a vehicle to Update!");
+      return;
     }
 
-    try {
-      const response = await axiosInstance.put("/cars/{id}", payload);
+    const formData = new FormData();
+    formData.append("brand", brand);
+    formData.append("type", type);
+    formData.append("registrationNumber", regNo);
+    formData.append("year", parseInt(year));
+    formData.append("fuelType", fuelType);
+    formData.append("seatingCapacity", parseInt(seatingCapacity));
+    formData.append("dailyRentalPrice", parseFloat(rental));
+    formData.append("description", description);
+    formData.append("model", model);
+    formData.append("status", status);
+    formData.append("image", imageFile);
 
-      if (response.ok) {
-        const result = await response.json();
+    // const payload = {
+    //   brand: brand,
+    //   type: vehicleType,
+    //   model: model,
+    //   status: status,
+    //   registrationNumber: regNo,
+    //   year:parseInt(year),
+    //   fuelType: fuelType,
+    //   seatingCapacity: parseInt(seatingCapacity),
+    //   dailyRentalPrice: parseFloat(rental),
+    //   description: description,
+    //   imageUrl: imageFile
+    // }
+
+    try {
+      const response = await axiosInstance.put(`/cars/${carId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response === 200) {
+        const result = await response.data;
         console.log("Vehicle updated successfully:", result);
-        alert("Vehicle update successfully!");
+        alert("Vehicle updated successfully!");
         resetForm();
+        setCars(
+          cars.map((car)=>(car.id=carId ?response.data:car))
+        );
 
       } else {
         console.error("Failed to update vehicle");
@@ -109,9 +187,9 @@ function AdminManageVehicles() {
     setModel("");
     setRegNo("");
     setFuelType("");
-    setYear("");
-    setSeatCapacity("");
-    setRental("");
+    setYear(0);
+    setSeatCapacity(0);
+    setRental(0.00);
     setVehicleType("");
     setStatus("");
     setDescription("");
@@ -194,9 +272,8 @@ function AdminManageVehicles() {
 
               <div className="col-md-6">
                 <label className="text-light mb-2 small fw-bold"
-
                   placeholder="ex:corolla">
-                  Model
+                  Type
                 </label>
                 <input type="text" className="form-control custom-dark-input" id="model" placeholder="ex:Corolla" onChange={(e) => setModel(e.target.value)} />
               </div>
@@ -207,19 +284,19 @@ function AdminManageVehicles() {
               <div className="col-md-4">
                 <label className="text-light mb-2 small fw-bold" >
                   Registration Number
-                  <input type="text" className="form-control custom-dark-input" id="brand" placeholder="RegisterNumber"onChange={(e) => setRegNo(e.target.value)}></input>
+                  <input type="text" className="form-control custom-dark-input" id="brand" placeholder="RegisterNumber" onChange={(e) => setRegNo(e.target.value)}></input>
                 </label>
               </div>
 
               <div className="row g-4 mb-4">
                 <div className="col-md-4"></div>
-
+                <label className="text-light mb-2 small fw-bold">Fuel Type</label>
                 <select className="form-select custom-dark-input" id="fuelType" onChange={(e) => setFuelType(e.target.value)}>
-                  <option selected disabled>Fuel Type</option>
-                  <option value="Petrol"><PETROL></PETROL></option>
-                  <option value="Diesel">DIESEL</option>
-                  <option value="Diesel">ELECTRIC</option>
-                  <option value="Diesel">HYBRID</option>
+                  <option selected disabled> Select Fuel Type</option>
+                  <option value="PETROL">Petrol</option>
+                  <option value="DIESEL">Diesel</option>
+                  <option value="ELECTRIC">Electric</option>
+                  <option value="HYBRID">Hybrid</option>
                 </select>
               </div>
               <div className="col-md-4">
@@ -236,12 +313,7 @@ function AdminManageVehicles() {
               </div>
               <div className="col-md-4">
                 <label className="text-light mb-2 small fw-bold">Date (2000-2025)</label>
-                <select className="form-select custom-dark-input" id="seating" onChange={(e) => setSeatCapacity(e.target.value)}>
-                  <option selected disabled>Seating Capacity</option>
-                  <option>2 Seats</option>
-                  <option>4 Seats</option>
-                  <option>5 Seats</option>
-                </select>
+                <input className="form-select custom-dark-input" id="seating" onChange={(e) => setSeatCapacity(e.target.value)} placeholder="Seating Capacity" />
               </div>
             </div>
 
@@ -249,30 +321,25 @@ function AdminManageVehicles() {
             <div className="row g-4 mb-4">
               <div className="col-md-4">
                 <label className="text-light mb-2 small fw-bold">Daily Rental</label>
-                <select className="form-select custom-dark-input" id="rental" onChange={(e) => setRental(e.target.value)}>
-                  <option selected disabled>Daily Rental</option>
-                  <option>$50</option>
-                  <option>$100</option>
-                  <option>$200</option>
-                </select>
+                <input className="form-select custom-dark-input" id="rental" placeholder="Price in dollers" onChange={(e) => setRental(e.target.value)} />
               </div>
               <div className="col-md-4">
                 <label className="text-light mb-2 small fw-bold">Vehicle Type</label>
                 <select className="form-select custom-dark-input" id="vehicleType" onChange={(e) => setVehicleType(e.target.value)}>
                   <option selected disabled>Select type</option>
-                  <option selected >SEDAN</option>
+                  <option>SEDAN</option>
                   <option>SUV</option>
-                  <option>LUXARY</option>
-                   <option>VAN</option>
-                    <option>SPORT</option>
-                     <option>CROSSOVER</option>
+                  <option>LUXURY</option>
+                  <option>VAN</option>
+                  <option>SPORT</option>
+                  <option>CROSSOVER</option>
                 </select>
               </div>
               <div className="col-md-4">
                 <label className="text-light mb-2 small fw-bold">Vehicle Status</label>
                 <select className="form-select custom-dark-input" id="status" onChange={(e) => setStatus(e.target.value)}>
                   <option selected disabled>Select</option>
-                  <option selected>AVAIABLE</option>
+                  <option>AVAILABLE</option>
                   <option>RENTED</option>
                   <option>MAINTENANCE</option>
                 </select>
@@ -283,10 +350,7 @@ function AdminManageVehicles() {
             <div className="row g-4 mb-4">
               <div className="col-md-6">
                 <label className="text-light mb-2 small fw-bold">Description of Vehicle</label>
-                <select className="form-select custom-dark-input"  id="descType" onChange={(e) => setDescription(e.target.value)}>
-                  <option selected disabled>Select Default</option>
-                  <option>Full option</option>
-                </select>
+                <input className="form-select custom-dark-input" id="descType" onChange={(e) => setDescription(e.target.value)} placeholder="Add Description" />
               </div>
             </div>
 

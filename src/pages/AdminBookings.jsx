@@ -1,6 +1,7 @@
 import React from 'react';
 import AdminNavbar from '../components/AdminNavbar';
 import heroImage from '../assets/benz.jpg';
+import {Link} from "react-router-dom"
 
 function AdminBookings() {
   const bookings = [
@@ -13,26 +14,45 @@ function AdminBookings() {
     <div className="d-flex" style={{ backgroundColor: "#1c1e22", minHeight: "100vh", color: "#e0e0e0" }}>
       
       {/* --- SIDEBAR --- */}
-      <div style={{ 
-        width: "260px", 
-        backgroundColor: "#121212", 
-        borderRight: "1px solid #333",
-        padding: "30px 20px"
-      }}>
-        <div style={{ display: "flex", alignItems: "center", marginBottom: "40px", gap: "10px" }}>
-          <i className="bi bi-person-circle text-warning fs-4"></i>
-          <span style={{ border: "1px solid #444", padding: "2px 10px", borderRadius: "4px", fontSize: "0.75rem", color: "#888" }}>Admin</span>
+            <div className="bg-black d-flex flex-column" style={{ width: "260px", borderRight: "1px solid #333" }}>
+        <div className="p-4">
+          <h4 className="text-warning fw-bold mb-5" style={{ letterSpacing: "2px" }}>
+            🚗 RideWave
+          </h4>
+
+          <nav className="nav flex-column gap-1">
+            <Link to="/CarListning" style={{ textDecoration: "none" }}>
+              <div style={sidebarItem}>
+                <i className="bi bi-car-front-fill"></i> Car Listings
+              </div>
+            </Link>
+
+           <Link to="/CarListning" style={{ textDecoration: "none" }}>
+              <div style={sidebarItem}>
+                <i className="bi bi-bar-chart-fill"></i> Analytics
+              </div>
+            </Link>
+
+                       <Link to="/CarListning" style={{ textDecoration: "none" }}>
+              <div style={sidebarItem}>
+                <i className="bi bi-envelope"></i> Messages
+              </div>
+            </Link>
+
+                       <Link to="/CarListning" style={{ textDecoration: "none" }}>
+              <div style={sidebarItem}>
+                <i className="bi bi-gear"></i>Settings
+              </div>
+            </Link>
+          </nav>
         </div>
-        <nav style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-          <div style={sidebarItem}><i className="bi bi-speedometer2"></i> Admin</div>
-          <div style={{ ...sidebarItem, color: "#fff", borderLeft: "4px solid #f6c23e", paddingLeft: "15px", backgroundColor: "#1a1c20" }}>
-             <i className="bi bi-car-front text-warning"></i> Car Listings
-          </div>
-          <div style={sidebarItem}><i className="bi bi-graph-up"></i> Analytics</div>
-          <div style={sidebarItem}><i className="bi bi-envelope"></i> Message</div>
-          <div style={sidebarItem}><i className="bi bi-gear"></i> Settings</div>
-        </nav>
+
+        <div className="mt-auto p-4 text-secondary" style={{ fontSize: "0.7rem" }}>
+          © 2026 RideWave - Premier Service
+        </div>
       </div>
+
+
 
       {/* --- MAIN CONTENT --- */}
       <div style={{ flexGrow: 1 }}>

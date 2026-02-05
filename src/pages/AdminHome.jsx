@@ -1,31 +1,46 @@
 import React from "react";
 import AdminNavbar from "../components/AdminNavbar";
-
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { Link } from "react-router-dom";
 
 function AdminHome() {
   return (
     <div className="d-flex min-vh-100" style={{ backgroundColor: "#15171a", color: "#e0e0e0" }}>
-      
+
       {/* --- SIDEBAR --- */}
       <div className="bg-black d-flex flex-column" style={{ width: "260px", borderRight: "1px solid #333" }}>
         <div className="p-4">
           <h4 className="text-warning fw-bold mb-5" style={{ letterSpacing: "2px" }}>
             🚗 RideWave
           </h4>
-          
+
           <nav className="nav flex-column gap-1">
-            <div style={sidebarItem}><i className="bi bi-grid-fill"></i> Dashboard</div>
-            <div style={sidebarItem}><i className="bi bi-car-front-fill"></i> Car Listings</div>
-            <div style={sidebarItem}><i className="bi bi-bar-chart-fill"></i> Analytics</div>
-            <div style={activeSidebarItem}><i className="bi bi-shield-lock-fill"></i> Dashboard</div>
-            <div style={sidebarItem}><i className="bi bi-calendar-check"></i> Bookings</div>
-            <div style={sidebarItem}><i className="bi bi-people"></i> Customers</div>
-            <div style={sidebarItem}><i className="bi bi-envelope"></i> Messages</div>
-            <div style={sidebarItem}><i className="bi bi-gear"></i> Settings</div>
+            <Link to="/CarListning" style={{ textDecoration: "none" }}>
+              <div style={sidebarItem}>
+                <i className="bi bi-car-front-fill"></i> Car Listings
+              </div>
+            </Link>
+
+           <Link to="/CarListning" style={{ textDecoration: "none" }}>
+              <div style={sidebarItem}>
+                <i className="bi bi-bar-chart-fill"></i> Analytics
+              </div>
+            </Link>
+
+                       <Link to="/CarListning" style={{ textDecoration: "none" }}>
+              <div style={sidebarItem}>
+                <i className="bi bi-envelope"></i> Messages
+              </div>
+            </Link>
+
+                       <Link to="/CarListning" style={{ textDecoration: "none" }}>
+              <div style={sidebarItem}>
+                <i className="bi bi-gear"></i>Settings
+              </div>
+            </Link>
           </nav>
         </div>
-        
+
         <div className="mt-auto p-4 text-secondary" style={{ fontSize: "0.7rem" }}>
           © 2026 RideWave - Premier Service
         </div>
@@ -47,16 +62,16 @@ function AdminHome() {
 
         {/* Dashboard Content Container */}
         <div className="p-4 px-5">
-          
+
           <div className="row g-4 mb-5">
             {/* Table Section */}
             <div className="col-lg-8">
               <div style={cardStyle}>
                 <div className="d-flex align-items-center mb-4 gap-2">
-                   <i className="bi bi-car-front text-warning fs-4"></i>
-                   <h5 className="mb-0 fw-bold">Recent Bookings</h5>
+                  <i className="bi bi-car-front text-warning fs-4"></i>
+                  <h5 className="mb-0 fw-bold">Recent Bookings</h5>
                 </div>
-                
+
                 <table className="table table-dark table-hover border-secondary align-middle mb-0" style={{ fontSize: "0.85rem" }}>
                   <thead className="text-warning text-uppercase">
                     <tr style={{ borderBottom: "2px solid #f6c23e" }}>
@@ -109,15 +124,15 @@ function AdminHome() {
               <div style={{ ...cardStyle, marginBottom: "20px" }}>
                 <h6 className="text-secondary mb-3 fw-bold">Live Analytics</h6>
                 <div style={statLine}>
-                  <span className="text-warning">●</span> Revenue 
+                  <span className="text-warning">●</span> Revenue
                   <span className="ms-auto fw-bold text-white">$1,450</span>
                 </div>
                 <div style={statLine}>
-                  <span className="text-info">●</span> New Users 
+                  <span className="text-info">●</span> New Users
                   <span className="ms-auto fw-bold text-white">3240</span>
                 </div>
                 <div style={statLine}>
-                  <span className="text-success">●</span> Active Vehicles 
+                  <span className="text-success">●</span> Active Vehicles
                   <span className="ms-auto fw-bold text-white">85%</span>
                 </div>
               </div>
@@ -144,7 +159,7 @@ function AdminHome() {
           </div>
 
           <footer className="text-center text-secondary py-4" style={{ fontSize: "0.75rem", letterSpacing: "1px" }}>
-             © 2026 RIDEWAVE - PREMIER CAR RENTAL SERVICE
+            © 2026 RIDEWAVE - PREMIER CAR RENTAL SERVICE
           </footer>
         </div>
       </div>

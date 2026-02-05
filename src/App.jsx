@@ -62,7 +62,7 @@ function App({ show }) {
           {/* route to  car listnings */}
           <Route path='/CarListning' element={<CarListning/>} />
           {/* add vehicle */}
-            <Route path='/AdminManageVehicles' element={<AdminManageVehicles/>} />
+            {/* <Route path='/AdminManageVehicles' element={<AdminManageVehicles/>} /> */}
             
          
         </Routes>
