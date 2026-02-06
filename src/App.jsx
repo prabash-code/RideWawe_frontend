@@ -63,7 +63,7 @@ function App({ show }) {
           <Route path='/CarListning' element={<CarListning/>} />
           {/* add vehicle */}
             {/* <Route path='/AdminManageVehicles' element={<AdminManageVehicles/>} /> */}
-            
+            <Route path='/ManageAdmin/:id' element={<AdminManageVehicles/>} /> 
          
         </Routes>
       </Router>

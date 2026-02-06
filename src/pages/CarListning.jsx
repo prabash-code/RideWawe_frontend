@@ -99,7 +99,7 @@ function CarListning() {
 
               <div className="card-footer bg-transparent border-0 d-flex gap-2">
                 <Link
-                  to={`/ManageAdmin`}
+                  to={`/ManageAdmin/${car.id}`}
                   className="btn btn-outline-light w-50 text-center"
                 >
                   Update

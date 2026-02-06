@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AdminNavbar from "../components/AdminNavbar";
 import axiosInstance from "../services/axiosInstance";
+import { useParams } from "react-router-dom";
 
 function AdminManageVehicles() {
 
@@ -20,18 +21,46 @@ function AdminManageVehicles() {
   const [imagePreview, setImagePreview] = useState("");
 
 
-
+  const { id } = useParams();
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const res = await axiosInstance.get("/cars");
-        setCars(res.data)
+        if (id) {
+          axiosInstance.get(`/cars/${id}`)
+            .then((res) => {
+              const car = res.data;
+
+              setCarId(car.id);
+              setBrand(car.brand || "");
+              setModel(car.model || "");
+              setRegNo(car.registrationNumber || "");
+              setFuelType(car.fuelType || "");
+              setYear(car.year || 0);
+              setSeatCapacity(car.seatingCapacity || 0);
+              setRental(car.dailyRentalPrice || 0);
+              setVehicleType(car.type || "");
+              setStatus(car.status || "");
+              setDescription(car.description || "");
+
+              if (car.imageBase64) {
+                setImagePreview(
+                  `data:${car.imageType};base64,${car.imageBase64}`
+                );
+              }
+            })
+            .catch(() => {
+              alert("Failed to load car data");
+            });
+        }
+        // setCars(res.data)
       } catch (err) {
         console.error("FAiled to fetch cars :", err);
       }
     };
     fetchCars();
-  }, []);
+
+
+  }, [id]);
 
 
   const handleSelectCar = (car) => {
@@ -78,19 +107,6 @@ function AdminManageVehicles() {
     formData.append("status", status);
     formData.append("image", imageFile);
 
-    // const payload = {
-    //   brand: brand,
-    //   type: vehicleType,
-    //   registrationNumber: regNo,
-    //   year:parseInt(year),
-    //   fuelType: fuelType,
-    //   seatingCapacity: parseInt(seatingCapacity),
-    //   dailyRentalPrice: parseFloat(rental),
-    //   description: description,
-    //   model: model,
-    //   status: status,    
-    //   imageUrl: imageFile
-    // }
 
     try {
       const response = await axiosInstance.post("/cars", formData, {
@@ -138,19 +154,7 @@ function AdminManageVehicles() {
     formData.append("status", status);
     formData.append("image", imageFile);
 
-    // const payload = {
-    //   brand: brand,
-    //   type: vehicleType,
-    //   model: model,
-    //   status: status,
-    //   registrationNumber: regNo,
-    //   year:parseInt(year),
-    //   fuelType: fuelType,
-    //   seatingCapacity: parseInt(seatingCapacity),
-    //   dailyRentalPrice: parseFloat(rental),
-    //   description: description,
-    //   imageUrl: imageFile
-    // }
+  
 
     try {
       const response = await axiosInstance.put(`/cars/${carId}`, formData, {
@@ -159,13 +163,13 @@ function AdminManageVehicles() {
         },
       });
 
-      if (response === 200) {
+      if (response.status === 200) {
         const result = await response.data;
         console.log("Vehicle updated successfully:", result);
         alert("Vehicle updated successfully!");
         resetForm();
         setCars(
-          cars.map((car)=>(car.id=carId ?response.data:car))
+          cars.map((car) => (car.id === carId ? response.data : car))
         );
 
       } else {
@@ -267,15 +271,15 @@ function AdminManageVehicles() {
                 <label className="text-light mb-2 small fw-bold"
 
                 >Brand</label>
-                <input type="text" className="form-control custom-dark-input" id="brand" placeholder="Brand" onChange={(e) => setBrand(e.target.value)} />
+                <input type="text" className="form-control custom-dark-input"  value={brand} placeholder="Brand" onChange={(e) => setBrand(e.target.value)} />
               </div>
 
               <div className="col-md-6">
                 <label className="text-light mb-2 small fw-bold"
                   placeholder="ex:corolla">
-                  Type
+                  Model
                 </label>
-                <input type="text" className="form-control custom-dark-input" id="model" placeholder="ex:Corolla" onChange={(e) => setModel(e.target.value)} />
+                <input type="text" className="form-control custom-dark-input" value={model} placeholder="ex:Corolla" onChange={(e) => setModel(e.target.value)} />
               </div>
             </div>
 
@@ -284,14 +288,14 @@ function AdminManageVehicles() {
               <div className="col-md-4">
                 <label className="text-light mb-2 small fw-bold" >
                   Registration Number
-                  <input type="text" className="form-control custom-dark-input" id="brand" placeholder="RegisterNumber" onChange={(e) => setRegNo(e.target.value)}></input>
+                  <input type="text" className="form-control custom-dark-input" value={regNo}  placeholder="RegisterNumber" onChange={(e) => setRegNo(e.target.value)}></input>
                 </label>
               </div>
 
               <div className="row g-4 mb-4">
                 <div className="col-md-4"></div>
                 <label className="text-light mb-2 small fw-bold">Fuel Type</label>
-                <select className="form-select custom-dark-input" id="fuelType" onChange={(e) => setFuelType(e.target.value)}>
+                <select className="form-select custom-dark-input" value={fuelType} onChange={(e) => setFuelType(e.target.value)}>
                   <option selected disabled> Select Fuel Type</option>
                   <option value="PETROL">Petrol</option>
                   <option value="DIESEL">Diesel</option>
@@ -301,7 +305,7 @@ function AdminManageVehicles() {
               </div>
               <div className="col-md-4">
                 <label className="text-light mb-2 small fw-bold">Year (2000-2025)</label>
-                <select className="form-select custom-dark-input" id="year" onChange={(e) => setYear(e.target.value)}>
+                <select className="form-select custom-dark-input" value={year} onChange={(e) => setYear(e.target.value)}>
                   <option selected disabled>Reg</option>
                   <option>2025</option>
                   <option>2024</option>
@@ -313,7 +317,7 @@ function AdminManageVehicles() {
               </div>
               <div className="col-md-4">
                 <label className="text-light mb-2 small fw-bold">Date (2000-2025)</label>
-                <input className="form-select custom-dark-input" id="seating" onChange={(e) => setSeatCapacity(e.target.value)} placeholder="Seating Capacity" />
+                <input className="form-select custom-dark-input" value={seatingCapacity} onChange={(e) => setSeatCapacity(e.target.value)} placeholder="Seating Capacity" />
               </div>
             </div>
 
@@ -321,11 +325,11 @@ function AdminManageVehicles() {
             <div className="row g-4 mb-4">
               <div className="col-md-4">
                 <label className="text-light mb-2 small fw-bold">Daily Rental</label>
-                <input className="form-select custom-dark-input" id="rental" placeholder="Price in dollers" onChange={(e) => setRental(e.target.value)} />
+                <input className="form-select custom-dark-input"  value={rental} placeholder="Price in dollers" onChange={(e) => setRental(e.target.value)} />
               </div>
               <div className="col-md-4">
                 <label className="text-light mb-2 small fw-bold">Vehicle Type</label>
-                <select className="form-select custom-dark-input" id="vehicleType" onChange={(e) => setVehicleType(e.target.value)}>
+                <select className="form-select custom-dark-input" value={type} onChange={(e) => setVehicleType(e.target.value)}>
                   <option selected disabled>Select type</option>
                   <option>SEDAN</option>
                   <option>SUV</option>
@@ -337,7 +341,7 @@ function AdminManageVehicles() {
               </div>
               <div className="col-md-4">
                 <label className="text-light mb-2 small fw-bold">Vehicle Status</label>
-                <select className="form-select custom-dark-input" id="status" onChange={(e) => setStatus(e.target.value)}>
+                <select className="form-select custom-dark-input" value={status} onChange={(e) => setStatus(e.target.value)}>
                   <option selected disabled>Select</option>
                   <option>AVAILABLE</option>
                   <option>RENTED</option>
@@ -350,7 +354,7 @@ function AdminManageVehicles() {
             <div className="row g-4 mb-4">
               <div className="col-md-6">
                 <label className="text-light mb-2 small fw-bold">Description of Vehicle</label>
-                <input className="form-select custom-dark-input" id="descType" onChange={(e) => setDescription(e.target.value)} placeholder="Add Description" />
+                <input className="form-select custom-dark-input" id="descType" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Add Description" />
               </div>
             </div>
 
