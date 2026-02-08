@@ -9,7 +9,7 @@ function CustomerNavbar() {
         <div className="d-flex align-items-center justify-content-between">
 
           {/* Logo */}
-          <Link to="/HomeCustomer" className="me-auto" >
+          <Link to="/CustomerHome" className="me-auto" >
           <img
             src={logo}
             alt="RideWawe Logo"

@@ -5,61 +5,118 @@ import van from '../assets/van.jpg'
 import luxury from '../assets/luxury-cars.jpg'
 import sport from '../assets/sport-car.jpg'
 import cross from '../assets/crossover.jpg'
+import { Link } from "react-router-dom"
 
 function Feature() {
     return (
-        <div>
-            <h2 className="text-center">FEATURED CATEGORIES</h2>
-            <div className="row g-4 py-5 row-cols-1 row-cols-lg-3">
+        <div className="container py-5">
 
-                <div class="card" style={{ width: "18rem" }}>
-                    <img src={sedan} class="card-img-top" alt="..." />
-                    <div class="card-body">
-                        <h5 class="card-title">SEDAN</h5>
-                        <a href="#" class="btn btn-primary"> Go</a>
+            <h2 className="text-center mb-5">FEATURED CATEGORIES</h2>
+
+            <div id="featureCarousel" className="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+                <div className="carousel-inner">
+
+                    {/* First Slide */}
+                    <div className="carousel-item active">
+                        <div className="row g-4 justify-content-center">
+
+                            <div className="col-md-4">
+                                <div className="card h-100 shadow">
+                                    <img src={sedan} className="card-img-top img-fluid" alt="Sedan" />
+                                    <div className="card-body text-center">
+                                        <h5 className="card-title">SEDAN</h5>
+                                        <Link to="/CarListning">
+                                            <button className="btn btn-primary">Go</button>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="col-md-4">
+                                <div className="card h-100 shadow">
+                                    <img src={suv} className="card-img-top img-fluid" alt="SUV" />
+                                    <div className="card-body text-center">
+                                        <h5 className="card-title">SUV</h5>
+                                        <Link to="/CarListning">
+                                            <button className="btn btn-primary">Go</button>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="col-md-4">
+                                <div className="card h-100 shadow">
+                                    <img src={luxury} className="card-img-top img-fluid" alt="Luxury" />
+                                    <div className="card-body text-center">
+                                        <h5 className="card-title">LUXURY CARS</h5>
+                                        <Link to="/CarListning">
+                                            <button className="btn btn-primary">Go</button>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
+
+                    {/* Second Slide */}
+                    <div className="carousel-item">
+                        <div className="row g-4 justify-content-center">
+
+                            <div className="col-md-4">
+                                <div className="card h-100 shadow">
+                                    <img src={sport} className="card-img-top img-fluid" alt="Sport" />
+                                    <div className="card-body text-center">
+                                        <h5 className="card-title">SPORT CARS</h5>
+                                        <Link to="/CarListning">
+                                            <button className="btn btn-primary">Go</button>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="col-md-4">
+                                <div className="card h-100 shadow">
+                                    <img src={van} className="card-img-top img-fluid" alt="Van" />
+                                    <div className="card-body text-center">
+                                        <h5 className="card-title">VANS</h5>
+                                        <Link to="/CarListning">
+                                            <button className="btn btn-primary">Go</button>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="col-md-4">
+                                <div className="card h-100 shadow">
+                                    <img src={cross} className="card-img-top img-fluid" alt="Crossover" />
+                                    <div className="card-body text-center">
+                                        <h5 className="card-title">CROSSOVER</h5>
+                                        <Link to="/CarListning">
+                                            <button className="btn btn-primary">Go</button>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="card" style={{ width: "18rem" }}>
-                    <img src={suv} class="card-img-top" alt="..." />
-                    <div class="card-body">
-                        <h5 class="card-title">SUV</h5>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
+                {/* Controls */}
+                <button className="carousel-control-prev" type="button"
+                    data-bs-target="#featureCarousel" data-bs-slide="prev">
+                    <span className="carousel-control-prev-icon bg-dark rounded-circle"></span>
+                </button>
 
-                <div class="card" style={{ width: "18rem" }}>
-                    <img src={luxury} class="card-img-top" alt="..." />
-                    <div class="card-body">
-                        <h5 class="card-title">LUXURY CARS</h5>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-
-                <div class="card" style={{ width: "18rem" }}>
-                    <img src={sport} class="card-img-top" alt="..." />
-                    <div class="card-body">
-                        <h5 class="card-title">SPORT CARS</h5>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-
-                <div class="card" style={{ width: "18rem" }}>
-                    <img src={van} class="card-img-top" alt="..." />
-                    <div class="card-body">
-                        <h5 class="card-title">VANS</h5>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-                <div class="card" style={{ width: "18rem" }}>
-                    <img src={cross} class="card-img-top" alt="..." />
-                    <div class="card-body">
-                        <h5 class="card-title">CROSSOVER</h5>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
+                <button className="carousel-control-next" type="button"
+                    data-bs-target="#featureCarousel" data-bs-slide="next">
+                    <span className="carousel-control-next-icon bg-dark rounded-circle"></span>
+                </button>
 
             </div>
+
         </div>
     )
 }

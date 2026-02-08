@@ -20,6 +20,7 @@ import ChangePw from './pages/ChangePw'
 import AdminManageVehicles from './pages/AdminManageVehicles'
 import AdminHome from './pages/AdminHome'
 import CarListning from './pages/CarListning'
+import BookingConformation from './pages/BookingConformation'
 
 
 
@@ -64,6 +65,7 @@ function App({ show }) {
           {/* add vehicle */}
             {/* <Route path='/AdminManageVehicles' element={<AdminManageVehicles/>} /> */}
             <Route path='/ManageAdmin/:id' element={<AdminManageVehicles/>} /> 
+            <Route path='/BookingConformation' element={<BookingConformation/>} /> 
          
         </Routes>
       </Router>

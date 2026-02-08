@@ -4,289 +4,166 @@ import Footer from '../components/Footer'
 import Feature from '../components/Feature'
 import image from '../assets/back.png'
 import benzImg from '../assets/benz.jpg'
-
-
+import { Link } from 'react-router-dom'
 
 function Home() {
+    const [car, setCar] = useState()
 
-    const[car,setCar]=useState()
-
-    useEffect(()=>{
-
-
-    },[]);
+    useEffect(() => {
+        // Your logic
+    }, []);
 
     return (
-        <div>
+        <div style={{ backgroundColor: "#fdfdfd" }}>
             <Navbar />
-            {/* front image */}
+
 
             <div style={{
-                backgroundImage: `url(${image})`,
+                backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${image})`,
                 backgroundSize: "cover",
-                backgroundPosition: "top",
+                backgroundPosition: "center",
                 height: "700px",
                 display: "flex",
+                flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
+                color: "white"
             }}>
+                <h1 className="fw-bold display-3 mb-4">LET'S RIDE THE FUTURE</h1>
+                <button className="btn btn-warning btn-lg px-5 py-3 rounded-pill fw-bold shadow-lg"
+                    style={{ backgroundColor: "#ff8c00", border: "none" }}>
+                    RENT NOW
+                </button>
             </div>
 
-            <Feature />
+            {/* 2. Feature Component */}
+            <div className="container py-5">
+                <Feature />
+            </div>
 
-            {/* Explore more popular cars */}
-
-            <div id="carouselExample" className="carousel slide">
-                <h2 className="text-center">EXPLORE MORE POPULAR CARS</h2>
-                <div className="carousel-inner">
-
-                    {/* Slide 1 */}
-                    <div className="carousel-item active">
-                        <div className="d-flex justify-content-center gap-3">
-
-                            <div className="card" style={{ width: '18rem' }}>
-                                <img src="..." className="card-img-top" alt="..." />
-                                <div className="card-body">
-                                    <h5 className="card-title">Sedan</h5>
-                                    <p className="card-text">Some quick example text to build on the card title.</p>
-                                    <a href="#" className="btn btn-primary">Go somewhere</a>
-                                </div>
+            {/* 3. Explore Cars Carousel */}
+            <div className="container py-5">
+                <h2 className="text-center fw-bold mb-5">EXPLORE MORE POPULAR CARS</h2>
+                <div id="carCarousel" className="carousel slide" data-bs-ride="carousel">
+                    <div className="carousel-inner">
+                        {/* Slide 1 */}
+                        <div className="carousel-item active">
+                            <div className="d-flex justify-content-center gap-4">
+                                {['Sedan', 'SUV', 'Luxury', 'Van'].map((type) => (
+                                    <div className="card border-0 shadow-sm rounded-4" style={{ width: '18rem' }} key={type}>
+                                        <img src={benzImg} className="card-img-top rounded-top-4" alt={type} />
+                                        <div className="card-body text-center">
+                                            <h5 className="fw-bold">{type}</h5>
+                                            <a href="#" className="btn btn-outline-primary rounded-pill">View Details</a>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-
-                            <div className="card" style={{ width: '18rem' }}>
-                                <img src="..." className="card-img-top" alt="..." />
-                                <div className="card-body">
-                                    <h5 className="card-title">Suv</h5>
-                                    <p className="card-text">Some quick example text to build on the card title.</p>
-                                    <a href="#" className="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-
-                            <div className="card" style={{ width: '18rem' }}>
-                                <img src="..." className="card-img-top" alt="..." />
-                                <div className="card-body">
-                                    <h5 className="card-title">Luxuary</h5>
-                                    <p className="card-text">Some quick example text to build on the card title.</p>
-                                    <a href="#" className="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-
-                            <div className="card" style={{ width: '18rem' }}>
-                                <img src="..." className="card-img-top" alt="..." />
-                                <div className="card-body">
-                                    <h5 className="card-title">Van</h5>
-                                    <p className="card-text">Some quick example text to build on the card title.</p>
-                                    <a href="#" className="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    {/* Slide 2 */}
-                    <div className="carousel-item">
-                        <div className="d-flex justify-content-center gap-3">
-
-                            <div className="card" style={{ width: '18rem' }}>
-                                <img src="..." className="card-img-top" alt="..." />
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example text to build on the card title.</p>
-                                    <a href="#" className="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-
-                            <div className="card" style={{ width: '18rem' }}>
-                                <img src="..." className="card-img-top" alt="..." />
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example text to build on the card title.</p>
-                                    <a href="#" className="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-
-                            <div className="card" style={{ width: '18rem' }}>
-                                <img src="..." className="card-img-top" alt="..." />
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example text to build on the card title.</p>
-                                    <a href="#" className="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-
-                            <div className="card" style={{ width: '18rem' }}>
-                                <img src="..." className="card-img-top" alt="..." />
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example text to build on the card title.</p>
-                                    <a href="#" className="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
-
-                {/* Controls */}
-                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span className="visually-hidden">Previous</span>
-                </button>
-                <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span className="visually-hidden">Next</span>
-                </button>
             </div>
 
-
-            {/* 3steps image */}
-            {/* 3 steps section */}
-            <div className="container my-5">
-                <div className="d-flex justify-content-center align-items-stretch">
-
-                    {/* Left image */}
-                    <div className="me-4 " style={{ flex: "0.5 0 300px" }}>
-                        <img
-                            src={benzImg}
-                            alt="Car Steps"
-                            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                        />
+            {/* 4. 3 Steps Section */}
+            <div className="container py-5 my-5">
+                <div className="row align-items-center">
+                    <div className="col-md-6">
+                        <img src={benzImg} alt="Steps" className="img-fluid rounded-5 shadow-lg" />
                     </div>
-
-                    {/* Right side steps */}
-                    <div className="flex-grow-1  " style={{ maxWidth: "500px" }}>
-                        <h2 className="mb-4 text-center">RENT CARS IN 3 STEPS</h2>
-
-                        <label className="list-group-item rounded-3 py-3 fw-bold text-center">
-                            CHOOSE DATE & LOCATION
-                            <span className="d-block small opacity-50 ">
-                                Pick your preferred date & place
-                            </span>
-                        </label>
-
-                        <label className="list-group-item rounded-3 py-3 mt-2 fw-bold text-center">
-                            BOOK YOUR CAR
-                            <span className="d-block small opacity-50">
-                                Reserve your car in seconds
-                            </span>
-                        </label>
-
-                        <label className="list-group-item rounded-3 py-3 mt-2 fw-bold text-center">
-                            SELECT TIME DURATION
-                            <span className="d-block small opacity-50">
-                                Choose how long you need it
-                            </span>
-                        </label>
-                    </div>
-
-                </div>
-            </div>
-
-            {/* Customer feedback */}
-
-            <div id="carouselExample" className="carousel slide">
-                <h2 className="text-center">OUR CLIENTS FEEDBACKS</h2>
-                <div className="carousel-inner">
-
-                    {/* Slide 1 */}
-                    <div className="carousel-item active">
-                        <div className="d-flex justify-content-center gap-3">
-
-                            <div className="card" style={{ width: '18rem' }}>
-                                <img src="..." className="card-img-top" alt="..." />
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example text to build on the card title.</p>
-                                    <a href="#" className="btn btn-primary">Go somewhere</a>
-                                </div>
+                    <div className="col-md-6 ps-md-5">
+                        <h2 className="fw-bold mb-4">RENT CARS IN 3 STEPS</h2>
+                        <div className="list-group">
+                            <div className="list-group-item border-0 bg-light rounded-4 mb-3 p-4 shadow-sm">
+                                <h6 className="fw-bold mb-1">CHOOSE DATE & LOCATION</h6>
+                                <span className="small opacity-75">Pick your preferred date & place</span>
                             </div>
-
-                            <div className="card" style={{ width: '18rem' }}>
-                                <img src="..." className="card-img-top" alt="..." />
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example text to build on the card title.</p>
-                                    <a href="#" className="btn btn-primary">Go somewhere</a>
-                                </div>
+                            <div className="list-group-item border-0 bg-light rounded-4 mb-3 p-4 shadow-sm">
+                                <h6 className="fw-bold mb-1">BOOK YOUR CAR</h6>
+                                <span className="small opacity-75">Reserve your car in seconds</span>
                             </div>
-
-                            <div className="card" style={{ width: '18rem' }}>
-                                <img src="..." className="card-img-top" alt="..." />
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example text to build on the card title.</p>
-                                    <a href="#" className="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-
-                            <div className="card" style={{ width: '18rem' }}>
-                                <img src="..." className="card-img-top" alt="..." />
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example text to build on the card title.</p>
-                                    <a href="#" className="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    {/* Slide 2 */}
-                    <div className="carousel-item">
-                        <div className="d-flex justify-content-center gap-3">
-
-                            <div className="card" style={{ width: '18rem' }}>
-                                <img src="..." className="card-img-top" alt="..." />
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example text to build on the card title.</p>
-                                    <a href="#" className="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-
-                            <div className="card" style={{ width: '18rem' }}>
-                                <img src="..." className="card-img-top" alt="..." />
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example text to build on the card title.</p>
-                                    <a href="#" className="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-
-                            <div className="card" style={{ width: '18rem' }}>
-                                <img src="..." className="card-img-top" alt="..." />
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example text to build on the card title.</p>
-                                    <a href="#" className="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-
-                            <div className="card" style={{ width: '18rem' }}>
-                                <img src="..." className="card-img-top" alt="..." />
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example text to build on the card title.</p>
-                                    <a href="#" className="btn btn-primary">Go somewhere</a>
-                                </div>
+                            <div className="list-group-item border-0 bg-light rounded-4 p-4 shadow-sm">
+                                <h6 className="fw-bold mb-1">SELECT TIME DURATION</h6>
+                                <span className="small opacity-75">Choose how long you need it</span>
                             </div>
                         </div>
                     </div>
-
                 </div>
-
-                {/* Controls */}
-                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span className="visually-hidden">Previous</span>
-                </button>
-                <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span className="visually-hidden">Next</span>
-                </button>
             </div>
+
+
+            <div className="container" style={{ marginTop: "-50px", position: "relative", zIndex: "10" }}>
+                <div className="bg-white shadow-lg rounded-pill p-2 d-flex align-items-center justify-content-between flex-wrap"
+                    style={{ border: "1px solid #eee" }}>
+
+
+
+                    {/* Pick Up Location */}
+                    <div className="px-4 border-end">
+                        <label className="d-block small text-muted fw-bold text-uppercase" style={{ fontSize: '10px' }}>Pick Up Location</label>
+                        <select className="form-select border-0 p-0 fw-bold shadow-none" style={{ fontSize: '14px', cursor: 'pointer' }}>
+                            <option>Select Location</option>
+                            <option>Airport</option>
+                            <option>City Center</option>
+                        </select>
+                    </div>
+
+                    {/*endLocation */}
+                    <div className="px-4 border-end">
+                        <label className="d-block small text-muted fw-bold text-uppercase" style={{ fontSize: '10px' }}>Final Location</label>
+                        <select className="form-select border-0 p-0 fw-bold shadow-none" style={{ fontSize: '14px', cursor: 'pointer' }}>
+                            <option>Select Location</option>
+                            <option>Airport</option>
+                            <option>City Center</option>
+                        </select>
+                    </div>
+
+                    {/* Pick Up Date */}
+                    <div className="px-4 border-end">
+                        <label className="d-block small text-muted fw-bold text-uppercase" style={{ fontSize: '10px' }}>Pick Up Date</label>
+                        <input type="date" className="form-control border-0 p-0 fw-bold shadow-none" style={{ fontSize: '14px' }} />
+                    </div>
+
+                    {/* Return Date */}
+                    <div className="px-4 border-end">
+                        <label className="d-block small text-muted fw-bold text-uppercase" style={{ fontSize: '10px' }}>Return Date</label>
+                        <input type="date" className="form-control border-0 p-0 fw-bold shadow-none" style={{ fontSize: '14px' }} />
+                    </div>
+
+                    {/* Submit Button */}
+                    <div className="ps-3 pe-2">
+                        <Link to={"/BookingConformation"}>
+                            <button className="btn btn-warning rounded-pill px-5 py-3 fw-bold"
+                                style={{ backgroundColor: "#ffb400", border: "none", color: "#000" }}>
+                                Rent Now
+                            </button>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+
+            {/* 5. Customer Feedback Carousel */}
+            <div className="container py-5 mb-5">
+                <h2 className="text-center fw-bold mb-5">OUR CLIENTS FEEDBACKS</h2>
+                <div id="feedbackCarousel" className="carousel slide">
+                    <div className="carousel-inner">
+                        <div className="carousel-item active">
+                            <div className="d-flex justify-content-center gap-4">
+                                {[1, 2, 3].map((i) => (
+                                    <div className="card border-0 bg-light p-4 rounded-4 shadow-sm" style={{ width: '22rem' }} key={i}>
+                                        <div className="text-warning mb-2">★★★★★</div>
+                                        <p className="card-text">"The experience was modern and the cars were in great condition. Highly recommended!"</p>
+                                        <h6 className="fw-bold mb-0 mt-3">Customer {i}</h6>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
             <Footer />
-
         </div>
     )
 }
