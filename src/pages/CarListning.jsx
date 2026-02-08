@@ -12,6 +12,7 @@ function CarListning() {
         const res = await axiosInstance.get("/cars");
 
         const carsWithImage = res.data.map((car) => ({
+          ...car,
           imageUrl: car.imageBase64
             ? `data:${car.imageType};base64,${car.imageBase64}`
             : "/no-image.png",
@@ -66,7 +67,7 @@ function CarListning() {
           .map((type) => (
             <div key={type} className="mb-5">
 
-           
+
               <div className="mb-3">
                 <h3 className="text-warning fw-bold text-uppercase">
                   {type}
@@ -74,7 +75,7 @@ function CarListning() {
                 <hr className="border-warning" />
               </div>
 
-             
+
               <div className="row g-4">
                 {groupCars[type].map((car) => (
                   <div className="col-lg-4 col-md-6" key={car.id}>
@@ -102,7 +103,6 @@ function CarListning() {
                         >
                           Update
                         </Link>
-
                         <button
                           className="btn btn-warning w-50 fw-semibold"
                           onClick={() => handleDelete(car.id)}

@@ -21,6 +21,7 @@ import AdminManageVehicles from './pages/AdminManageVehicles'
 import AdminHome from './pages/AdminHome'
 import CarListning from './pages/CarListning'
 import BookingConformation from './pages/BookingConformation'
+import CarView from './pages/carView'
 
 
 
@@ -65,7 +66,8 @@ function App({ show }) {
           {/* add vehicle */}
             {/* <Route path='/AdminManageVehicles' element={<AdminManageVehicles/>} /> */}
             <Route path='/ManageAdmin/:id' element={<AdminManageVehicles/>} /> 
-            <Route path='/BookingConformation' element={<BookingConformation/>} /> 
+            <Route path='/BookingConformation/:id' element={<BookingConformation/>} /> 
+            <Route path='/CarView' element={<CarView/>} /> 
          
         </Routes>
       </Router>

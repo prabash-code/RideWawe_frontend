@@ -25,8 +25,8 @@ function Feature() {
                                     <img src={sedan} className="card-img-top img-fluid" alt="Sedan" />
                                     <div className="card-body text-center">
                                         <h5 className="card-title">SEDAN</h5>
-                                        <Link to="/CarListning">
-                                            <button className="btn btn-primary">Go</button>
+                                        <Link to="/CarView">
+                                            <button className="btn btn-primary">Book Now</button>
                                         </Link>
                                     </div>
                                 </div>
@@ -37,8 +37,8 @@ function Feature() {
                                     <img src={suv} className="card-img-top img-fluid" alt="SUV" />
                                     <div className="card-body text-center">
                                         <h5 className="card-title">SUV</h5>
-                                        <Link to="/CarListning">
-                                            <button className="btn btn-primary">Go</button>
+                                        <Link to="/CarView">
+                                            <button className="btn btn-primary">Book Now</button>
                                         </Link>
                                     </div>
                                 </div>
@@ -49,8 +49,8 @@ function Feature() {
                                     <img src={luxury} className="card-img-top img-fluid" alt="Luxury" />
                                     <div className="card-body text-center">
                                         <h5 className="card-title">LUXURY CARS</h5>
-                                        <Link to="/CarListning">
-                                            <button className="btn btn-primary">Go</button>
+                                        <Link to="/CarView">
+                                            <button className="btn btn-primary">Book Now</button>
                                         </Link>
                                     </div>
                                 </div>
@@ -68,8 +68,8 @@ function Feature() {
                                     <img src={sport} className="card-img-top img-fluid" alt="Sport" />
                                     <div className="card-body text-center">
                                         <h5 className="card-title">SPORT CARS</h5>
-                                        <Link to="/CarListning">
-                                            <button className="btn btn-primary">Go</button>
+                                        <Link to="/CarView">
+                                            <button className="btn btn-primary">Book Now</button>
                                         </Link>
                                     </div>
                                 </div>
@@ -80,8 +80,8 @@ function Feature() {
                                     <img src={van} className="card-img-top img-fluid" alt="Van" />
                                     <div className="card-body text-center">
                                         <h5 className="card-title">VANS</h5>
-                                        <Link to="/CarListning">
-                                            <button className="btn btn-primary">Go</button>
+                                        <Link to="/CarView">
+                                            <button className="btn btn-primary">Book Now</button>
                                         </Link>
                                     </div>
                                 </div>
@@ -92,8 +92,8 @@ function Feature() {
                                     <img src={cross} className="card-img-top img-fluid" alt="Crossover" />
                                     <div className="card-body text-center">
                                         <h5 className="card-title">CROSSOVER</h5>
-                                        <Link to="/CarListning">
-                                            <button className="btn btn-primary">Go</button>
+                                        <Link to="/CarView">
+                                            <button className="btn btn-primary">Book Now</button>
                                         </Link>
                                     </div>
                                 </div>
