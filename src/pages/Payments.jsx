@@ -1,15 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 import CustomerNavbar from "../components/CustomerNavbar";
 import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 import { 
   FaUserShield, 
   FaCar, 
   FaChartLine, 
   FaEnvelope, 
   FaCog 
-} from "react-icons/fa"; // Install react-icons if not present
+} from "react-icons/fa"; 
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import axiosInstance from "../services/axiosInstance";
 
-function  AdminPayments() {
+
+
+
+function Payments() {
+const{bookingId}=useParams();
+const[method,setMethod]=useState("");
+const[amount,setAmount]=useState("");
+
+
+
+const handleClick= async (e)=>{
+  e.preventDefault();
+const payLoad={
+  bookingId:bookingId,
+  method:method,
+  amount:parseFloat(amount)
+};
+
+  try{
+    const res=await axiosInstance.post("/payments",payLoad);
+
+    const result =res.data;
+    if(result){
+      alert("Payment Successful !!!")
+    }else{
+      alert("Payment unSuccessful,Try again !!!")
+    }
+  }catch(err){
+        console.error("FULL ERROR:", err);
+  console.error("Response:", err.response);
+  console.error("Data:", err.response?.data);
+  alert(err.response?.data?.message || "Error occurred");
+
+  }
+}
+
+
+
+
   return (
     <div style={{ backgroundColor: "#1c1e22", minHeight: "100vh", color: "#e0e0e0" }}>
       <CustomerNavbar />
@@ -55,27 +97,45 @@ function  AdminPayments() {
               PROCESS PAYMENT
             </h4>
 
-            <form>
+            <form  onSubmit={handleClick} >
               <div style={{ marginBottom: "25px" }}>
                 <label style={labelStyle}>Booking ID</label>
                 <input 
                   type="text" 
                   placeholder="Booking ID" 
                   style={inputStyle} 
+                  value={bookingId}
+                  readOnly
                 />
               </div>
 
               <div style={{ marginBottom: "25px" }}>
                 <label style={labelStyle}>Payment Method</label>
-                <select style={inputStyle}>
-                  <option>Card</option>
-                  <option>Cash</option>
-                  <option>Bank Transfer</option>
+                <select style={inputStyle} onChange={(e)=>setMethod(e.target.value)} >
+                  <option > Select option</option>
+                  <option value="CARD"> CARD</option>
+                  <option value="CASH"> CASH</option>
+                  <option value="CHEQUE">CHEQUE</option>
+                  <option value="ONLINE">ONLINE</option>
                 </select>
               </div>
 
+                            <div style={{ marginBottom: "25px" }}>
+                <label style={labelStyle}>Amount</label>
+                <input 
+                  type="text" 
+                  placeholder="Amount" 
+                  style={inputStyle}
+                   
+                  onChange={(e)=>setAmount(e.target.value)}
+                 
+                />
+              </div>
+
               <div style={{ display: "flex", flexDirection: "column", gap: "15px", marginTop: "40px" }}>
-                <button type="submit" style={yellowBtn}>PAY NOW</button>
+                <button type="submit"  style={yellowBtn}>PAY NOW</button>
+                
+                <Link to={"/Home"}>
                 <button type="button" style={{ 
                   backgroundColor: "transparent", 
                   border: "none", 
@@ -86,6 +146,7 @@ function  AdminPayments() {
                 }}>
                   BACK TO HOME
                 </button>
+                </Link>
               </div>
             </form>
           </div>
@@ -153,4 +214,4 @@ const yellowBtn = {
   letterSpacing: "1px"
 };
 
-export default AdminPayments;
+export default Payments;

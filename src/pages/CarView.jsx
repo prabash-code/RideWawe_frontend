@@ -8,9 +8,9 @@ function CarView() {
     useEffect(() => {
         const fetchCars = async () => {
             try {
-                const res = await axiosInstance.get("/cars"); 
+                const res = await axiosInstance.get("/cars");
                 const carsWithImage = res.data.map((car) => ({
-                    ...car, 
+                    ...car,
                     imageUrl: car.imageBase64
                         ? `data:${car.imageType};base64,${car.imageBase64}`
                         : "/no-image.png",
@@ -64,20 +64,20 @@ function CarView() {
                                                 >
                                                     Update
                                                 </Link>
-                                                </div>
-
                                             </div>
-                                        </div>
 
+                                        </div>
                                     </div>
-              ))}
 
                                 </div>
-          </div>
-                        ))
-      )}
+                            ))}
+
+                        </div>
                     </div>
-                );
+                ))
+            )}
+        </div>
+    );
 }
 
-            export default CarView;
+export default CarView;

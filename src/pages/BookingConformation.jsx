@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import axiosInstance from '../services/axiosInstance';
+
 
 const BookingConformation = () => {
     const [car, setCar] = useState(null);
+    const navigate = useNavigate();
 
 
-    const [customerId, setCustomerId] = useState("");
+    // const [customerId, setCustomerId] = useState("");
     const [customerName, setCustomerName] = useState("");
     const [customerEmail, setCustomerEmail] = useState("");
     const [registrationNumber, setRegistrationNumber] = useState("");
@@ -42,7 +44,7 @@ const BookingConformation = () => {
 
         const payLoad = {
             carId:id,
-            customerId: customerId,
+            // customerId: customerId,
             customerName: customerName,
             customerEmail: customerEmail,
             registrationNumber: registrationNumber,
@@ -53,8 +55,12 @@ const BookingConformation = () => {
             endDate: new Date(endDate).toISOString()
         };
         try{
-            await axiosInstance.post("/bookings",payLoad);
+            const response = await axiosInstance.post("/bookings",payLoad);
             alert("Booking is conformed");
+            
+            const bookingId=response.data.id;
+
+            navigate(`/payments/${bookingId}`);
 
         }catch(error){
             alert("Booking Failed");
@@ -74,10 +80,10 @@ const BookingConformation = () => {
                 <form onSubmit={confirmBooking}>
                     <div className="row g-4">
                         {/* Row 1 */}
-                        <div className="col-md-6">
+                        {/* <div className="col-md-6">
                             <label className="form-label fw-bold small">Customer ID</label>
                             <input type="number" name="customerId" className="form-control p-3 bg-light border-0 rounded-3" placeholder="ID Number" value={customerId} onChange={(e) => setCustomerId(e.target.value)} required />
-                        </div>
+                        </div> */}
                         <div className="col-md-6">
                             <label className="form-label fw-bold small">Email Address</label>
                             <input type="email" name="customerEmail" className="form-control p-3 bg-light border-0 rounded-3" placeholder="example@mail.com" value={customerEmail} onChange={(e) => setCustomerEmail(e.target.value)} required />

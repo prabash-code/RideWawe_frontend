@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AdminNavbar from "../components/AdminNavbar";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Link } from "react-router-dom";
+import axiosInstance from "../services/axiosInstance";
 
 function AdminHome() {
+  const [bookings, setBookings] = useState([]);
+
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const res = await axiosInstance.get("/bookings");
+        setBookings(res.data);
+      } catch (error) {
+        console.error("Error fetching bookings:", error);
+      }
+    };
+
+    fetchBookings();
+  }, []);
+
   return (
     <div className="d-flex min-vh-100" style={{ backgroundColor: "#15171a", color: "#e0e0e0" }}>
 
@@ -21,19 +37,19 @@ function AdminHome() {
               </div>
             </Link>
 
-           <Link to="/CarListning" style={{ textDecoration: "none" }}>
+            <Link to="/CarListning" style={{ textDecoration: "none" }}>
               <div style={sidebarItem}>
                 <i className="bi bi-bar-chart-fill"></i> Analytics
               </div>
             </Link>
 
-                       <Link to="/CarListning" style={{ textDecoration: "none" }}>
+            <Link to="/CarListning" style={{ textDecoration: "none" }}>
               <div style={sidebarItem}>
                 <i className="bi bi-envelope"></i> Messages
               </div>
             </Link>
 
-                       <Link to="/CarListning" style={{ textDecoration: "none" }}>
+            <Link to="/CarListning" style={{ textDecoration: "none" }}>
               <div style={sidebarItem}>
                 <i className="bi bi-gear"></i>Settings
               </div>
@@ -76,44 +92,40 @@ function AdminHome() {
                   <thead className="text-warning text-uppercase">
                     <tr style={{ borderBottom: "2px solid #f6c23e" }}>
                       <th className="py-3 border-0">ID</th>
+                      <th className="py-3 border-0">Customer Name</th>
                       <th className="py-3 border-0">Start Date</th>
                       <th className="py-3 border-0">End Date</th>
-                      <th className="py-3 border-0">Status</th>
-                      <th className="py-3 border-0">Actions</th>
+                      <th className="py-3 border-0">Email</th>
                     </tr>
                   </thead>
+
+
                   <tbody>
-                    <tr>
-                      <td className="py-3 border-0 text-secondary">RW2584</td>
-                      <td className="py-3 border-0 text-secondary">CAR-1023</td>
-                      <td className="py-3 border-0 text-secondary">2024-04-24</td>
-                      <td className="py-3 border-0 text-secondary">Pending</td>
-                      <td className="py-3 border-0">
-                        <button className="btn btn-sm btn-outline-light me-1 px-3">Pay</button>
-                        <button className="btn btn-sm btn-outline-warning px-3">Cancel</button>
-                      </td>
-                    </tr>
-                    <tr style={{ backgroundColor: "#f6c23e", color: "#000" }}>
-                      <td className="py-3 border-0 fw-bold">Confirmed</td>
-                      <td className="py-3 border-0">2024-04-24</td>
-                      <td className="py-3 border-0">2024-04-21</td>
-                      <td className="py-3 border-0 fw-bold">Pending</td>
-                      <td className="py-3 border-0">
-                        <button className="btn btn-sm btn-dark px-3">Pay</button>
-                        <button className="btn btn-sm btn-outline-dark px-3">Cancel</button>
-                      </td>
-                    </tr>
-                    <tr style={{ backgroundColor: "#c0392b" }}>
-                      <td className="py-3 border-0 fw-bold">Cancelled</td>
-                      <td className="py-3 border-0">2024-04-26</td>
-                      <td className="py-3 border-0">2024-04-21</td>
-                      <td className="py-3 border-0 fw-bold text-warning">Cancelled</td>
-                      <td className="py-3 border-0">
-                        <button className="btn btn-sm btn-dark px-3">View</button>
-                        <button className="btn btn-sm btn-dark px-3">View</button>
-                      </td>
-                    </tr>
+                    {bookings.length > 0 ? (
+                      bookings.map((b) => (
+                        <tr key={b.id}>
+                          <td className="py-3 border-0 text-secondary">{b.id}</td>
+                          <td className="py-3 border-0 text-secondary">{b.customerName}</td>
+                          <td className="py-3 border-0 text-secondary">{b.startDate}</td>
+                          <td className="py-3 border-0 text-secondary">{b.endDate}</td>
+                          <td className="py-3 border-0 text-secondary">{b.customerEmail}</td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td className="text-center  text-secondary">
+                          Loading bookings...
+                        </td>
+                      </tr>
+                    )}
+                                 
+
                   </tbody>
+
+
+
+
+
                 </table>
               </div>
             </div>

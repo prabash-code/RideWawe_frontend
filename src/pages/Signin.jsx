@@ -5,12 +5,14 @@ import axiosInstance from "../services/axiosInstance";
 import { decodeJwt } from "../utils/JWTutil";
 
 
+
 function Signin() {
 
   const navigate = useNavigate();
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [vaild, setIsFormValid] = useState(false)
+  
 
   useEffect(() => {
     const validateForm = () => {
@@ -18,6 +20,8 @@ function Signin() {
         email.trim() !== "" &&
         password.trim() !== ""
       );
+      
+
     };
 
     setIsFormValid(validateForm());
@@ -37,11 +41,13 @@ function Signin() {
 
       const userData = response.data;
 
+
       localStorage.setItem("token", userData);
       const jwtPayload = decodeJwt(userData);
 
       localStorage.setItem("email", jwtPayload.email);
       localStorage.setItem("role", jwtPayload.role);
+      localStorage.setItem("custId", jwtPayload.id);
 
       if (jwtPayload.role === "ADMIN") {
         navigate("/Admin");

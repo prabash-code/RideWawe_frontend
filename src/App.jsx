@@ -22,6 +22,9 @@ import AdminHome from './pages/AdminHome'
 import CarListning from './pages/CarListning'
 import BookingConformation from './pages/BookingConformation'
 import CarView from './pages/carView'
+import Payments from './pages/Payments'
+import FeedbackForm from './pages/FeedbackForm'
+
 
 
 
@@ -47,7 +50,7 @@ function App({ show }) {
           <Route path='/ManageAdmin' element={<AdminManageVehicles />} />
           <Route path='/PaymentsAdmin' element={<AdminPayments />} />
           <Route path='/ReportsAdmin' element={<AdminReports />} />
-          <Route path='/Home' element={<Home/>} />
+
 
           {/* Customer */}
          <Route path='/CustomerHome' element={<CustomerHome/>} />
@@ -68,8 +71,12 @@ function App({ show }) {
             <Route path='/ManageAdmin/:id' element={<AdminManageVehicles/>} /> 
             <Route path='/BookingConformation/:id' element={<BookingConformation/>} /> 
             <Route path='/CarView' element={<CarView/>} /> 
-         
+         <Route path='/CustomerHome/:id' element={<CustomerHome/>} /> 
+         <Route path='/payments/:bookingId' element={<Payments/>} />
+        <Route path='/feedback' element={<FeedbackForm/>} />
+
         </Routes>
+
       </Router>
     </>
   )

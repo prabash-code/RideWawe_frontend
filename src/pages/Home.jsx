@@ -29,7 +29,7 @@ function Home() {
                 justifyContent: "center",
                 color: "white"
             }}>
-                <h1 className="fw-bold display-3 mb-4">LET'S RIDE THE FUTURE</h1>
+
                 <button className="btn btn-warning btn-lg px-5 py-3 rounded-pill fw-bold shadow-lg"
                     style={{ backgroundColor: "#ff8c00", border: "none" }}>
                     RENT NOW
