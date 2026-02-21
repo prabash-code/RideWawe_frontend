@@ -5,12 +5,25 @@ import Feature from '../components/Feature'
 import image from '../assets/back.png'
 import benzImg from '../assets/benz.jpg'
 import { Link } from 'react-router-dom'
+import axiosInstance from '../services/axiosInstance'
 
 function Home() {
     const [car, setCar] = useState()
+    const [feedback, setFeedback] = useState([])
 
     useEffect(() => {
-        // Your logic
+    const fetchFeedback = async () => {
+        try {
+            const res = await axiosInstance.get("/feedback");
+            setFeedback(res.data);  
+        } catch (err) {
+            console.error("Error:", err);
+            alert("Feedback not fetch !");
+        }
+    };
+
+    fetchFeedback();
+
     }, []);
 
     return (
@@ -148,11 +161,11 @@ function Home() {
                     <div className="carousel-inner">
                         <div className="carousel-item active">
                             <div className="d-flex justify-content-center gap-4">
-                                {[1, 2, 3].map((i) => (
-                                    <div className="card border-0 bg-light p-4 rounded-4 shadow-sm" style={{ width: '22rem' }} key={i}>
-                                        <div className="text-warning mb-2">★★★★★</div>
-                                        <p className="card-text">"The experience was modern and the cars were in great condition. Highly recommended!"</p>
-                                        <h6 className="fw-bold mb-0 mt-3">Customer {i}</h6>
+                                {feedback.map((i) => (
+                                    <div className="card border-0 bg-light p-4 rounded-4 shadow-sm" style={{ width: '22rem' }} key={i.id}>
+                                        <div className="text-warning mb-2">{i.ratings}</div>
+                                        <p className="card-text">{i.review}</p>
+                                        <h6 className="fw-bold mb-0 mt-3">Customer {i.name}</h6>
                                     </div>
                                 ))}
                             </div>

@@ -1,23 +1,38 @@
 import React, { useState } from 'react';
+import axiosInstance from '../services/axiosInstance';
 
 const FeedbackForm = () => {
-    const [feedback, setFeedback] = useState({
-        customerName: '',
-        customerEmail: '',
-        rating: 5,
-        comment: '',
-        carModel: '' // Optional: To know which car they rented
-    });
+    // const [feedback, setFeedback] = useState({});
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [rate, setRate] = useState("");
+    const [review, setReview] = useState("");
 
-    const handleChange = (e) => {
-        setFeedback({ ...feedback, [e.target.name]: e.target.value });
-    };
 
-    const handleSubmit = (e) => {
+
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Feedback Submitted:", feedback);
+
+        try{
+                    const payLoad = {
+            name: name,
+            email: email,
+            ratings: Number(rate),
+            review: review
+
+        }
+
+        await axiosInstance.post("/feedback",payLoad);
+
+        console.log("Feedback Submitted:");
         alert("Thank you for your feedback!");
-        // Add your API call here: axios.post('/api/feedback', feedback)
+        }catch(err){
+                  console.error("Error:", err);
+      alert("Feedback not send !");
+
+        }
+
     };
 
     return (
@@ -31,34 +46,34 @@ const FeedbackForm = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label className="form-label fw-bold small text-uppercase">Full Name</label>
-                        <input 
-                            type="text" 
-                            name="customerName" 
-                            className="form-control p-3 bg-light border-0 rounded-3" 
+                        <input
+                            type="text"
+                            name="customerName"
+                            className="form-control p-3 bg-light border-0 rounded-3"
                             placeholder="Enter your name"
-                            onChange={handleChange} 
-                            required 
+                            onChange={(e) => setName(e.target.value)}
+                            required
                         />
                     </div>
 
                     <div className="mb-3">
                         <label className="form-label fw-bold small text-uppercase">Email Address</label>
-                        <input 
-                            type="email" 
-                            name="customerEmail" 
-                            className="form-control p-3 bg-light border-0 rounded-3" 
+                        <input
+                            type="email"
+                            name="customerEmail"
+                            className="form-control p-3 bg-light border-0 rounded-3"
                             placeholder="Enter your email"
-                            onChange={handleChange} 
-                            required 
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
                         />
                     </div>
 
                     <div className="mb-3">
                         <label className="form-label fw-bold small text-uppercase">Rating</label>
-                        <select 
-                            name="rating" 
+                        <select
+                            name="rating"
                             className="form-select p-3 bg-light border-0 rounded-3 fw-bold text-warning"
-                            onChange={handleChange}
+                            onChange={(e) => setRate(e.target.value)}
                         >
                             <option value="5">★★★★★ (Excellent)</option>
                             <option value="4">★★★★☆ (Very Good)</option>
@@ -70,18 +85,18 @@ const FeedbackForm = () => {
 
                     <div className="mb-4">
                         <label className="form-label fw-bold small text-uppercase">Your Review</label>
-                        <textarea 
-                            name="comment" 
-                            rows="4" 
-                            className="form-control p-3 bg-light border-0 rounded-3" 
+                        <textarea
+                            name="comment"
+                            rows="4"
+                            className="form-control p-3 bg-light border-0 rounded-3"
                             placeholder="How was your ride?"
-                            onChange={handleChange} 
+                            onChange={(e) => setReview(e.target.value)}
                             required
                         ></textarea>
                     </div>
 
-                    <button 
-                        type="submit" 
+                    <button
+                        type="submit"
                         className="btn btn-dark w-100 py-3 rounded-pill fw-bold shadow-sm"
                         style={{ letterSpacing: "1px" }}
                     >

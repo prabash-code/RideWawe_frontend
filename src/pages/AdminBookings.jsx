@@ -1,111 +1,189 @@
 import React, { useState, useEffect } from "react";
-import AdminNavbar from "../components/AdminNavbar";
-import heroImage from "../assets/benz.jpg";
-import { Link } from "react-router-dom";
+import CustomerNavbar from "../components/CustomerNavbar";
+import Footer from "../components/Footer";
+import hero from "../assets/bookings.png";
 import axiosInstance from "../services/axiosInstance";
 
 function AdminBookings() {
   const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const email = localStorage.getItem("email");
 
   useEffect(() => {
-    const fetchBookings = async () => {
+    
+
+    const fetchData = async () => {
       try {
-        const res = await axiosInstance.get("/bookings");
+        const res = await axiosInstance.get(`/bookings`);
         setBookings(res.data);
       } catch (error) {
-        console.error("Failed to fetch bookings:", error);
+        console.error("Error fetching bookings:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchBookings();
-  }, []);
+    fetchData();
+  }, [email]);
 
   return (
-    <div className="d-flex" style={{ backgroundColor: "#1c1e22", minHeight: "100vh", color: "#e0e0e0" }}>
-      
-      {/* Sidebar */}
-      <div className="bg-black d-flex flex-column" style={{ width: "260px", borderRight: "1px solid #333" }}>
-        <div className="p-4">
-          <h4 className="text-warning fw-bold mb-5" style={{ letterSpacing: "2px" }}>
-            🚗 RideWave
-          </h4>
+    <div
+      style={{
+        backgroundColor: "#1c1e22",
+        minHeight: "100vh",
+        color: "#e0e0e0",
+        fontFamily: "Arial, sans-serif",
+      }}
+    >
+      <CustomerNavbar />
 
-          <nav className="nav flex-column gap-1">
-            <Link to="/CarListning" style={{ textDecoration: "none" }}>
-              <div style={sidebarItem}>Car Listings</div>
-            </Link>
-          </nav>
-        </div>
-
-        <div className="mt-auto p-4 text-secondary" style={{ fontSize: "0.7rem" }}>
-          © 2026 RideWave - Premier Service
-        </div>
+      {/* HERO BANNER */}
+      <div
+        style={{
+          height: "250px",
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.6), #1c1e22), url(${hero})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
       </div>
 
-      {/* Main Content */}
-      <div style={{ flexGrow: 1 }}>
-        <AdminNavbar />
-
-        {/* Hero Section */}
-        <div
+      {/* SUB-HEADER */}
+      <div
+        style={{
+          backgroundColor: "#15171a",
+          borderTop: "1px solid #333",
+          borderBottom: "1px solid #333",
+          padding: "12px 0",
+          textAlign: "center",
+        }}
+      >
+        <span
           style={{
-            height: "240px",
-            backgroundImage: `linear-gradient(rgba(0,0,0,0.7), #1c1e22), url(${heroImage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center"
+            textTransform: "uppercase",
+            fontSize: "0.85rem",
+            color: "#888",
+            fontWeight: "bold",
+            letterSpacing: "2px",
           }}
         >
-          <h1 style={{ fontWeight: "bold", color: "white", letterSpacing: "10px", fontSize: "3.5rem" }}>
-            BOOKINGS
-          </h1>
-        </div>
+          Booking History
+        </span>
+      </div>
 
-        {/* Table Section */}
-        <div style={{ padding: "50px" }}>
-          <div
-            style={{
-              backgroundColor: "#23262b",
-              borderRadius: "10px",
-              border: "1px solid #333",
-              overflow: "hidden",
-              boxShadow: "0 10px 30px rgba(0,0,0,0.4)"
-            }}
-          >
-            <h4 style={{ padding: "25px", margin: 0, fontWeight: "bold" }}>
-              Booking History
-            </h4>
-
-            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+      {/* MAIN TABLE */}
+      <div style={{ maxWidth: "1150px", margin: "40px auto", padding: "0 20px" }}>
+        <div
+          style={{
+            backgroundColor: "#23262b",
+            borderRadius: "12px",
+            border: "1px solid #333",
+            overflow: "hidden",
+            boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+          }}
+        >
+          <div style={{ overflowX: "auto" }}>
+            <table
+              style={{ width: "100%", borderCollapse: "collapse" }}
+            >
               <thead>
-                <tr style={{ backgroundColor: "#1a1c20", textAlign: "left", color: "#888" }}>
-                  <th style={thStyle}>ID</th>
-                  <th style={thStyle}>Customer Name</th>
-                  <th style={thStyle}>Vehicle Reg.No</th>
-                  <th style={thStyle}>Start Date</th>
-                  <th style={thStyle}>End Date</th>
-                  <th style={thStyle}>Email</th>
+                <tr
+                  style={{
+                    backgroundColor: "#1a1c20",
+                    textAlign: "left",
+                    color: "#f6c23e",
+                    fontSize: "0.85rem",
+                  }}
+                >
+                  <th style={thStyle}>REG. NO</th>
+                  <th style={thStyle}>CUSTOMER MAIL</th>
+                  <th style={thStyle}>START DATE</th>
+                  <th style={thStyle}>END DATE</th>
+                  <th style={thStyle}>STATUS</th>
+                  <th style={thStyle}>TOTAL</th>
+                  <th style={thStyle} className="text-center">ACTIONS</th>
                 </tr>
               </thead>
-
               <tbody>
-                {bookings.length === 0 ? (
+                {loading ? (
                   <tr>
-                    <td colSpan="6" style={{ padding: "20px", textAlign: "center", color: "#777" }}>
+                    <td colSpan="7" className="text-center text-secondary">
+                      Loading...
+                    </td>
+                  </tr>
+                ) : bookings.length === 0 ? (
+                  <tr>
+                    <td colSpan="7" className="text-center text-secondary">
                       No bookings found
                     </td>
                   </tr>
                 ) : (
                   bookings.map((b) => (
-                    <tr key={b.id} style={{ borderBottom: "1px solid #2d3035" }}>
-                      <td style={tdStyle}>{b.id}</td>
-                      <td style={tdStyle}>{b.customerName}</td>
+                    <tr
+                      key={b.id}
+                      className="booking-row"
+                      style={{ borderBottom: "1px solid #2d3035" }}
+                    >
                       <td style={tdStyle}>{b.registrationNumber}</td>
+                      <td style={tdStyle}>{b.customerEmail}</td>
                       <td style={tdStyle}>{b.startDate}</td>
                       <td style={tdStyle}>{b.endDate}</td>
-                      <td style={tdStyle}>{b.customerEmail}</td>
+                      <td style={tdStyle}>
+                        <span
+                          style={{
+                            ...statusBadge,
+                            backgroundColor:
+                              b.paymentStatus === "PAID"
+                                ? "#28a745"
+                                : b.paymentStatus === "PENDING"
+                                ? "#f6c23e"
+                                : "#dc3545",
+                            color: b.paymentStatus === "PENDING" ? "#000" : "#fff",
+                          }}
+                        >
+                          {b.paymentStatus}
+                        </span>
+                      </td>
+                      <td style={{ ...tdStyle, fontWeight: "bold", color: "#fff" }}>
+                        {b.totalAmount}
+                      </td>
+                      <td style={tdStyle}>
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "8px",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <button style={actionBtn} className="view-btn">
+                            View
+                          </button>
+                          {b.paymentStatus === "PENDING" && (
+                            <button
+                              style={{ ...actionBtn, backgroundColor: "#f6c23e", color: "#000" }}
+                            >
+                              Pay Now
+                            </button>
+                          )}
+                          {b.paymentStatus !== "FAIL" && (
+                            <button
+                              style={{
+                                ...actionBtn,
+                                border: "1px solid #dc3545",
+                                backgroundColor: "transparent",
+                                color: "#dc3545",
+                              }}
+                            >
+                              Cancel
+                            </button>
+                          )}
+                        </div>
+                      </td>
                     </tr>
                   ))
                 )}
@@ -113,19 +191,58 @@ function AdminBookings() {
             </table>
           </div>
         </div>
+
+        <div
+          style={{
+            textAlign: "center",
+            marginTop: "40px",
+            color: "#666",
+            fontSize: "0.8rem",
+            letterSpacing: "1px",
+          }}
+        >
+          © 2026 RIDEWAVE - PREMIER CAR RENTAL SERVICE
+        </div>
       </div>
+
+      <Footer />
+
+      <style>{`
+        .booking-row:hover { background-color: rgba(255, 255, 255, 0.02); transition: 0.3s; }
+        .view-btn:hover { background-color: #4a4f55 !important; }
+      `}</style>
     </div>
   );
 }
 
-const sidebarItem = {
-  padding: "12px",
-  cursor: "pointer",
-  borderRadius: "6px",
-  color: "#777"
+// --- STYLES ---
+const thStyle = {
+  padding: "20px",
+  fontWeight: "bold",
+  borderBottom: "2px solid #333",
+  textTransform: "uppercase",
 };
-
-const thStyle = { padding: "18px 25px" };
-const tdStyle = { padding: "18px 25px" };
+const tdStyle = { padding: "20px", color: "#ccc", fontSize: "0.9rem" };
+const statusBadge = {
+  padding: "6px 12px",
+  borderRadius: "4px",
+  fontSize: "0.7rem",
+  fontWeight: "bold",
+  textTransform: "uppercase",
+  display: "inline-block",
+  minWidth: "95px",
+  textAlign: "center",
+};
+const actionBtn = {
+  padding: "8px 16px",
+  fontSize: "0.75rem",
+  borderRadius: "4px",
+  border: "none",
+  backgroundColor: "#3a3f44",
+  color: "#fff",
+  cursor: "pointer",
+  fontWeight: "bold",
+  transition: "0.3s",
+};
 
 export default AdminBookings;
