@@ -62,7 +62,7 @@ function CarView() {
                                                     to={`/BookingConformation/${car.id}`}
                                                     className="btn btn-outline w-50 text-center"
                                                 >
-                                                    Update
+                                                    Book Now
                                                 </Link>
                                             </div>
 

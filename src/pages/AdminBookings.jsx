@@ -12,7 +12,6 @@ function AdminBookings() {
 
   useEffect(() => {
     
-
     const fetchData = async () => {
       try {
         const res = await axiosInstance.get(`/bookings`);

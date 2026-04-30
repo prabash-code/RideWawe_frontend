@@ -17,6 +17,7 @@ const BookingConformation = () => {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [totalAmount, setTotalAmount] = useState("");
+    const[userName,setUserName]=useState("")
 
     const { id } = useParams();
 

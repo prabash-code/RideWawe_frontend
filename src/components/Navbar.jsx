@@ -23,7 +23,6 @@ function Navbar() {
           {/* Menu - RIGHT */}
           <ul className="nav mb-2 mb-md-0">
             <li><a href="/Home" className="nav-link px-2 text-secondary">Home</a></li>
-            <li><a href="/Bookings" className="nav-link px-2 text-white">Booking</a></li>
             <li><a href="/Packages" className="nav-link px-2 text-white">Packages</a></li>
             <li><a href="/About" className="nav-link px-2 text-white">About</a></li>
             <li><a href="/Contact" className="nav-link px-2 text-white">Contact</a></li>

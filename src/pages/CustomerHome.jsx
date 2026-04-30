@@ -23,7 +23,7 @@ function CustomerHome() {
         const token = localStorage.getItem("token");
         if (!token) {
           console.error("No token found! Please login first.");
-          return; 
+          return;
         }
 
         const bookingRes = await axiosInstance.get(`/bookings/email`, {
@@ -141,6 +141,17 @@ function CustomerHome() {
                           <td>{b.startDate}</td>
                           <td>{b.endDate}</td>
                           <td>{b.customerEmail}</td>
+                          <td>
+                            <Link to={`/CarRates/${b.id}`}>
+                            <button
+                              className="btn btn-warning btn-sm"
+                              style={{ backgroundColor: "#f6c23e", color: "#000" }}
+                            >
+                             Rate Vehicle
+                            </button>
+                            </Link>
+                          </td>
+
                         </tr>
                       ))
                     )}
@@ -207,7 +218,7 @@ function CustomerHome() {
           </footer>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 
