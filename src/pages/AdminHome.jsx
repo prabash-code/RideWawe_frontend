@@ -1,31 +1,62 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AdminNavbar from "../components/AdminNavbar";
-
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { Link } from "react-router-dom";
+import axiosInstance from "../services/axiosInstance";
 
 function AdminHome() {
+  const [bookings, setBookings] = useState([]);
+
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const res = await axiosInstance.get("/bookings");
+        setBookings(res.data);
+      } catch (error) {
+        console.error("Error fetching bookings:", error);
+      }
+    };
+
+    fetchBookings();
+  }, []);
+
   return (
     <div className="d-flex min-vh-100" style={{ backgroundColor: "#15171a", color: "#e0e0e0" }}>
-      
+
       {/* --- SIDEBAR --- */}
       <div className="bg-black d-flex flex-column" style={{ width: "260px", borderRight: "1px solid #333" }}>
         <div className="p-4">
           <h4 className="text-warning fw-bold mb-5" style={{ letterSpacing: "2px" }}>
             🚗 RideWave
           </h4>
-          
+
           <nav className="nav flex-column gap-1">
-            <div style={sidebarItem}><i className="bi bi-grid-fill"></i> Dashboard</div>
-            <div style={sidebarItem}><i className="bi bi-car-front-fill"></i> Car Listings</div>
-            <div style={sidebarItem}><i className="bi bi-bar-chart-fill"></i> Analytics</div>
-            <div style={activeSidebarItem}><i className="bi bi-shield-lock-fill"></i> Dashboard</div>
-            <div style={sidebarItem}><i className="bi bi-calendar-check"></i> Bookings</div>
-            <div style={sidebarItem}><i className="bi bi-people"></i> Customers</div>
-            <div style={sidebarItem}><i className="bi bi-envelope"></i> Messages</div>
-            <div style={sidebarItem}><i className="bi bi-gear"></i> Settings</div>
+            <Link to="/CarListning" style={{ textDecoration: "none" }}>
+              <div style={sidebarItem}>
+                <i className="bi bi-car-front-fill"></i> Car Listings
+              </div>
+            </Link>
+
+            <Link to="/CarListning" style={{ textDecoration: "none" }}>
+              <div style={sidebarItem}>
+                <i className="bi bi-bar-chart-fill"></i> Analytics
+              </div>
+            </Link>
+
+            <Link to="/CarListning" style={{ textDecoration: "none" }}>
+              <div style={sidebarItem}>
+                <i className="bi bi-envelope"></i> Messages
+              </div>
+            </Link>
+
+            <Link to="/CarListning" style={{ textDecoration: "none" }}>
+              <div style={sidebarItem}>
+                <i className="bi bi-gear"></i>Settings
+              </div>
+            </Link>
           </nav>
         </div>
-        
+
         <div className="mt-auto p-4 text-secondary" style={{ fontSize: "0.7rem" }}>
           © 2026 RideWave - Premier Service
         </div>
@@ -47,58 +78,54 @@ function AdminHome() {
 
         {/* Dashboard Content Container */}
         <div className="p-4 px-5">
-          
+
           <div className="row g-4 mb-5">
             {/* Table Section */}
             <div className="col-lg-8">
               <div style={cardStyle}>
                 <div className="d-flex align-items-center mb-4 gap-2">
-                   <i className="bi bi-car-front text-warning fs-4"></i>
-                   <h5 className="mb-0 fw-bold">Recent Bookings</h5>
+                  <i className="bi bi-car-front text-warning fs-4"></i>
+                  <h5 className="mb-0 fw-bold">Recent Bookings</h5>
                 </div>
-                
+
                 <table className="table table-dark table-hover border-secondary align-middle mb-0" style={{ fontSize: "0.85rem" }}>
                   <thead className="text-warning text-uppercase">
                     <tr style={{ borderBottom: "2px solid #f6c23e" }}>
                       <th className="py-3 border-0">ID</th>
+                      <th className="py-3 border-0">Customer Name</th>
                       <th className="py-3 border-0">Start Date</th>
                       <th className="py-3 border-0">End Date</th>
-                      <th className="py-3 border-0">Status</th>
-                      <th className="py-3 border-0">Actions</th>
+                      <th className="py-3 border-0">Email</th>
                     </tr>
                   </thead>
+
+
                   <tbody>
-                    <tr>
-                      <td className="py-3 border-0 text-secondary">RW2584</td>
-                      <td className="py-3 border-0 text-secondary">CAR-1023</td>
-                      <td className="py-3 border-0 text-secondary">2024-04-24</td>
-                      <td className="py-3 border-0 text-secondary">Pending</td>
-                      <td className="py-3 border-0">
-                        <button className="btn btn-sm btn-outline-light me-1 px-3">Pay</button>
-                        <button className="btn btn-sm btn-outline-warning px-3">Cancel</button>
-                      </td>
-                    </tr>
-                    <tr style={{ backgroundColor: "#f6c23e", color: "#000" }}>
-                      <td className="py-3 border-0 fw-bold">Confirmed</td>
-                      <td className="py-3 border-0">2024-04-24</td>
-                      <td className="py-3 border-0">2024-04-21</td>
-                      <td className="py-3 border-0 fw-bold">Pending</td>
-                      <td className="py-3 border-0">
-                        <button className="btn btn-sm btn-dark px-3">Pay</button>
-                        <button className="btn btn-sm btn-outline-dark px-3">Cancel</button>
-                      </td>
-                    </tr>
-                    <tr style={{ backgroundColor: "#c0392b" }}>
-                      <td className="py-3 border-0 fw-bold">Cancelled</td>
-                      <td className="py-3 border-0">2024-04-26</td>
-                      <td className="py-3 border-0">2024-04-21</td>
-                      <td className="py-3 border-0 fw-bold text-warning">Cancelled</td>
-                      <td className="py-3 border-0">
-                        <button className="btn btn-sm btn-dark px-3">View</button>
-                        <button className="btn btn-sm btn-dark px-3">View</button>
-                      </td>
-                    </tr>
+                    {bookings.length > 0 ? (
+                      bookings.map((b) => (
+                        <tr key={b.id}>
+                          <td className="py-3 border-0 text-secondary">{b.id}</td>
+                          <td className="py-3 border-0 text-secondary">{b.customerName}</td>
+                          <td className="py-3 border-0 text-secondary">{b.startDate}</td>
+                          <td className="py-3 border-0 text-secondary">{b.endDate}</td>
+                          <td className="py-3 border-0 text-secondary">{b.customerEmail}</td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td className="text-center  text-secondary">
+                          Loading bookings...
+                        </td>
+                      </tr>
+                    )}
+                                 
+
                   </tbody>
+
+
+
+
+
                 </table>
               </div>
             </div>
@@ -109,15 +136,15 @@ function AdminHome() {
               <div style={{ ...cardStyle, marginBottom: "20px" }}>
                 <h6 className="text-secondary mb-3 fw-bold">Live Analytics</h6>
                 <div style={statLine}>
-                  <span className="text-warning">●</span> Revenue 
+                  <span className="text-warning">●</span> Revenue
                   <span className="ms-auto fw-bold text-white">$1,450</span>
                 </div>
                 <div style={statLine}>
-                  <span className="text-info">●</span> New Users 
+                  <span className="text-info">●</span> New Users
                   <span className="ms-auto fw-bold text-white">3240</span>
                 </div>
                 <div style={statLine}>
-                  <span className="text-success">●</span> Active Vehicles 
+                  <span className="text-success">●</span> Active Vehicles
                   <span className="ms-auto fw-bold text-white">85%</span>
                 </div>
               </div>
@@ -144,7 +171,7 @@ function AdminHome() {
           </div>
 
           <footer className="text-center text-secondary py-4" style={{ fontSize: "0.75rem", letterSpacing: "1px" }}>
-             © 2026 RIDEWAVE - PREMIER CAR RENTAL SERVICE
+            © 2026 RIDEWAVE - PREMIER CAR RENTAL SERVICE
           </footer>
         </div>
       </div>

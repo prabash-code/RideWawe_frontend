@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import AdminNavbar from '../components/AdminNavbar';
-// Make sure to install: npm install react-icons
 import { FaUserShield, FaCar, FaChartLine, FaEnvelope, FaCog, FaSearch } from "react-icons/fa";
+import axiosInstance from "../services/axiosInstance";
 
 function AdminPayments() {
-  const transactions = [
-    { id: "TXN1024", customer: "John Doe", amount: "$240", method: "Card", status: "Completed", date: "2024-04-24" },
-    { id: "TXN1025", customer: "Jane Smith", amount: "$300", method: "Bank Transfer", status: "Pending", date: "2024-04-25" },
-    { id: "TXN1026", customer: "Mike Ross", amount: "$150", method: "Cash", status: "Cancelled", date: "2024-04-26" },
-  ];
+ const[payments,setPayments]=useState([]);
+  
+ useEffect((()=>{
+
+const fetch= async()=>{
+      try {
+        const res = await axiosInstance.get(`/payments`);
+        setPayments(res.data);
+      } catch (error) {
+        console.error("Error fetching payments:", error);
+      } 
+
+}
+fetch();
+ }
+),[])
 
   return (
     <div style={{ backgroundColor: "#1c1e22", minHeight: "100vh", color: "#e0e0e0" }}>
@@ -65,23 +76,25 @@ function AdminPayments() {
               <table className="table table-dark table-hover mb-0">
                 <thead>
                   <tr style={{ borderBottom: "2px solid #f6c23e" }}>
-                    <th style={thStyle}>TRANSACTIONS</th>
-                    <th style={thStyle}>CUSTOMER</th>
+                 
+                    <th style={thStyle}>BOOKING ID</th>
                     <th style={thStyle}>AMOUNT</th>
                     <th style={thStyle}>METHOD</th>
-                    <th style={thStyle}>STATUS</th>
+                    <th style={thStyle}>TYPE</th>
                     <th style={thStyle}>DATE</th>
-                    <th style={thStyle} className="text-center">ACTIONS</th>
+                    {/* <th style={thStyle} className="text-center">ACTIONS</th> */}
                   </tr>
                 </thead>
                 <tbody>
-                  {transactions.map((txn) => (
+                  {payments.map((txn) => (
                     <tr key={txn.id} style={{ borderBottom: "1px solid #2d3035" }}>
-                      <td style={tdStyle} className="fw-bold text-warning">{txn.id}</td>
-                      <td style={tdStyle}>{txn.customer}</td>
+                     
+                      <td style={tdStyle}>{txn.bookingId}</td>
                       <td style={tdStyle}>{txn.amount}</td>
                       <td style={tdStyle}>{txn.method}</td>
-                      <td style={tdStyle}>
+                       <td style={tdStyle}>{txn.type}</td>
+                        <td style={tdStyle}>{txn.paymentDate}</td>
+                      {/* <td style={tdStyle}>
                         <span style={{
                           ...statusBadge,
                           backgroundColor: txn.status === "Completed" ? "#28a745" : txn.status === "Pending" ? "#f6c23e" : "#dc3545",
@@ -89,7 +102,7 @@ function AdminPayments() {
                         }}>
                           {txn.status}
                         </span>
-                      </td>
+                      </td> */}
                       <td style={tdStyle}>{txn.date}</td>
                       <td style={tdStyle} className="text-center">
                         <div className="d-flex justify-content-center gap-2">

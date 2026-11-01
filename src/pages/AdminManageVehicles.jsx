@@ -1,16 +1,215 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AdminNavbar from "../components/AdminNavbar";
+import axiosInstance from "../services/axiosInstance";
+import { useParams } from "react-router-dom";
 
 function AdminManageVehicles() {
+
+  const [cars, setCars] = useState([]);
+  const [carId, setCarId] = useState("");
+  const [brand, setBrand] = useState("");
+  const [model, setModel] = useState("");
+  const [regNo, setRegNo] = useState("");
+  const [fuelType, setFuelType] = useState("");
+  const [year, setYear] = useState(0);
+  const [seatingCapacity, setSeatCapacity] = useState(0);
+  const [rental, setRental] = useState(0);
+  const [type, setVehicleType] = useState("");
+  const [status, setStatus] = useState("");
+  const [description, setDescription] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
+
+
+  const { id } = useParams();
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        if (id) {
+          axiosInstance.get(`/cars/${id}`)
+            .then((res) => {
+              const car = res.data;
+
+              setCarId(car.id);
+              setBrand(car.brand || "");
+              setModel(car.model || "");
+              setRegNo(car.registrationNumber || "");
+              setFuelType(car.fuelType || "");
+              setYear(car.year || 0);
+              setSeatCapacity(car.seatingCapacity || 0);
+              setRental(car.dailyRentalPrice || 0);
+              setVehicleType(car.type || "");
+              setStatus(car.status || "");
+              setDescription(car.description || "");
+
+              if (car.imageBase64) {
+                setImagePreview(
+                  `data:${car.imageType};base64,${car.imageBase64}`
+                );
+              }
+            })
+            .catch(() => {
+              alert("Failed to load car data");
+            });
+        }
+        // setCars(res.data)
+      } catch (err) {
+        console.error("FAiled to fetch cars :", err);
+      }
+    };
+    fetchCars();
+
+
+  }, [id]);
+
+
+  const handleSelectCar = (car) => {
+
+    setCarId(car.id);
+    setBrand(car.brand || "");
+    setModel(car.model || "");
+    setRegNo(car.registrationNumber || "");
+    setFuelType(car.fuelType || "");
+    setYear(car.year || 0);
+    setSeatCapacity(car.seatingCapacity || 0);
+    setRental(car.dailyRentalPrice || 0);
+    setVehicleType(car.type || "");
+    setStatus(car.status || "");
+    setDescription(car.description || "");
+    setImagePreview(car.imageUrl || "");
+    setImageFile(null);
+  };
+
+
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      const previewImageURL = URL.createObjectURL(file);
+      setImagePreview(previewImageURL);
+    }
+  }
+
+  const handleAdd = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("brand", brand);
+    formData.append("type", type);
+    formData.append("registrationNumber", regNo);
+    formData.append("year", parseInt(year));
+    formData.append("fuelType", fuelType);
+    formData.append("seatingCapacity", parseInt(seatingCapacity));
+    formData.append("dailyRentalPrice", parseFloat(rental));
+    formData.append("description", description);
+    formData.append("model", model);
+    formData.append("status", status);
+    formData.append("image", imageFile);
+
+
+    try {
+      const response = await axiosInstance.post("/cars", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.status === 200) {
+        const result = await response.data;
+        console.log("Vehicle added successfully:", result);
+        alert("Vehicle added successfully!");
+        resetForm();
+
+      } else {
+        console.error("Failed to add vehicle");
+        alert("Failed to add vehicle. Please try again.");
+
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again.");
+
+    }
+  }
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+
+    if (!carId) {
+      alert("Select a vehicle to Update!");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("brand", brand);
+    formData.append("type", type);
+    formData.append("registrationNumber", regNo);
+    formData.append("year", parseInt(year));
+    formData.append("fuelType", fuelType);
+    formData.append("seatingCapacity", parseInt(seatingCapacity));
+    formData.append("dailyRentalPrice", parseFloat(rental));
+    formData.append("description", description);
+    formData.append("model", model);
+    formData.append("status", status);
+    formData.append("image", imageFile);
+
+  
+
+    try {
+      const response = await axiosInstance.put(`/cars/${carId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.status === 200) {
+        const result = await response.data;
+        console.log("Vehicle updated successfully:", result);
+        alert("Vehicle updated successfully!");
+        resetForm();
+        setCars(
+          cars.map((car) => (car.id === carId ? response.data : car))
+        );
+
+      } else {
+        console.error("Failed to update vehicle");
+        alert("Failed to update vehicle. Please try again.");
+
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again.");
+
+    }
+  }
+
+  const resetForm = () => {
+    setImageFile(null);
+    setImagePreview("");
+    setBrand("");
+    setModel("");
+    setRegNo("");
+    setFuelType("");
+    setYear(0);
+    setSeatCapacity(0);
+    setRental(0.00);
+    setVehicleType("");
+    setStatus("");
+    setDescription("");
+  }
+
+
+
   return (
     <div className="min-vh-100" style={{ backgroundColor: "#121212", color: "#e0e0e0" }}>
       <AdminNavbar />
 
       {/* Hero Banner Section */}
-      <div 
-        className="position-relative w-100 mb-5 d-flex align-items-center justify-content-center" 
-        style={{ 
-          height: "200px", 
+      <div
+        className="position-relative w-100 mb-5 d-flex align-items-center justify-content-center"
+        style={{
+          height: "200px",
           backgroundImage: 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2000&auto=format&fit=crop")',
           backgroundSize: "cover",
           backgroundPosition: "center"
@@ -22,12 +221,12 @@ function AdminManageVehicles() {
       </div>
 
       <div className="container pb-5 d-flex justify-content-center">
-        <div 
-          className="p-4 shadow-lg border-0" 
-          style={{ 
-            maxWidth: "900px", 
-            width: "100%", 
-            backgroundColor: "#1e1e1e", 
+        <div
+          className="p-4 shadow-lg border-0"
+          style={{
+            maxWidth: "900px",
+            width: "100%",
+            backgroundColor: "#1e1e1e",
             borderRadius: "10px",
             border: "1px solid #333"
           }}
@@ -36,55 +235,89 @@ function AdminManageVehicles() {
             MANAGE VEHICLES
           </h4>
 
-          <form className="mt-4 px-md-4">
+          <form className="containers">
             {/* Vehicle Image */}
             <div className="mb-4">
-              <input
-                type="text"
-                className="form-control custom-dark-input"
-                id="img"
-                placeholder="Add Image URL"
-              />
+              <label for="input-file">
+                <input
+                  type="file"
+                  className="form-control custom-dark-input"
+                  accept="image/*"
+                  id="img"
+                  onChange={handleImageChange}
+                  placeholder="Add Image URL"
+                />
+                {imagePreview && (
+                  <div className="mt-3">
+                    <img
+                      src={imagePreview}
+                      alt="Vehicle Preview"
+                      style={{
+                        maxWidth: "100%",
+                        maxHeight: "200px",
+                        objectFit: "contain",
+                        borderRadius: "8px",
+                        border: "2px solid #444"
+                      }}
+                    />
+                  </div>
+                )}
+              </label>
             </div>
 
             {/* Brand & Model */}
             <div className="row g-4 mb-4">
               <div className="col-md-6">
-                <label className="text-light mb-2 small fw-bold">Brand</label>
-                <input type="text" className="form-control custom-dark-input" id="brand" placeholder="Brand" />
+                <label className="text-light mb-2 small fw-bold"
+
+                >Brand</label>
+                <input type="text" className="form-control custom-dark-input"  value={brand} placeholder="Brand" onChange={(e) => setBrand(e.target.value)} />
               </div>
+
               <div className="col-md-6">
-                <label className="text-light mb-2 small fw-bold">Model</label>
-                <input type="text" className="form-control custom-dark-input" id="model" placeholder="Model" />
+                <label className="text-light mb-2 small fw-bold"
+                  placeholder="ex:corolla">
+                  Model
+                </label>
+                <input type="text" className="form-control custom-dark-input" value={model} placeholder="ex:Corolla" onChange={(e) => setModel(e.target.value)} />
               </div>
             </div>
 
             {/* Registration & Year Info - Row with 3 Columns */}
             <div className="row g-4 mb-4">
               <div className="col-md-4">
-                <label className="text-light mb-2 small fw-bold">Registration Number</label>
-                <select className="form-select custom-dark-input" id="fuelType">
-                  <option selected disabled>Fuel Type</option>
-                  <option value="Petrol">Petrol</option>
-                  <option value="Diesel">Diesel</option>
+                <label className="text-light mb-2 small fw-bold" >
+                  Registration Number
+                  <input type="text" className="form-control custom-dark-input" value={regNo}  placeholder="RegisterNumber" onChange={(e) => setRegNo(e.target.value)}></input>
+                </label>
+              </div>
+
+              <div className="row g-4 mb-4">
+                <div className="col-md-4"></div>
+                <label className="text-light mb-2 small fw-bold">Fuel Type</label>
+                <select className="form-select custom-dark-input" value={fuelType} onChange={(e) => setFuelType(e.target.value)}>
+                  <option selected disabled> Select Fuel Type</option>
+                  <option value="PETROL">Petrol</option>
+                  <option value="DIESEL">Diesel</option>
+                  <option value="ELECTRIC">Electric</option>
+                  <option value="HYBRID">Hybrid</option>
                 </select>
               </div>
               <div className="col-md-4">
                 <label className="text-light mb-2 small fw-bold">Year (2000-2025)</label>
-                <select className="form-select custom-dark-input" id="year">
+                <select className="form-select custom-dark-input" value={year} onChange={(e) => setYear(e.target.value)}>
                   <option selected disabled>Reg</option>
+                  <option>2025</option>
                   <option>2024</option>
                   <option>2023</option>
+                  <option>2022</option>
+                  <option>2021</option>
+                  <option>2020</option>
                 </select>
               </div>
               <div className="col-md-4">
                 <label className="text-light mb-2 small fw-bold">Date (2000-2025)</label>
-                <select className="form-select custom-dark-input" id="seating">
-                  <option selected disabled>Seating Capacity</option>
-                  <option>2 Seats</option>
-                  <option>4 Seats</option>
-                  <option>5 Seats</option>
-                </select>
+                <input className="form-select custom-dark-input" value={seatingCapacity} onChange={(e) => setSeatCapacity(e.target.value)} placeholder="Seating Capacity" />
               </div>
             </div>
 
@@ -92,26 +325,27 @@ function AdminManageVehicles() {
             <div className="row g-4 mb-4">
               <div className="col-md-4">
                 <label className="text-light mb-2 small fw-bold">Daily Rental</label>
-                <select className="form-select custom-dark-input" id="rental">
-                  <option selected disabled>Daily Rental</option>
-                  <option>$50</option>
-                  <option>$100</option>
-                </select>
+                <input className="form-select custom-dark-input"  value={rental} placeholder="Price in dollers" onChange={(e) => setRental(e.target.value)} />
               </div>
               <div className="col-md-4">
                 <label className="text-light mb-2 small fw-bold">Vehicle Type</label>
-                <select className="form-select custom-dark-input" id="vehicleType">
-                  <option selected disabled>Sedan</option>
+                <select className="form-select custom-dark-input" value={type} onChange={(e) => setVehicleType(e.target.value)}>
+                  <option selected disabled>Select type</option>
+                  <option>SEDAN</option>
                   <option>SUV</option>
-                  <option>Luxury</option>
+                  <option>LUXURY</option>
+                  <option>VAN</option>
+                  <option>SPORT</option>
+                  <option>CROSSOVER</option>
                 </select>
               </div>
               <div className="col-md-4">
                 <label className="text-light mb-2 small fw-bold">Vehicle Status</label>
-                <select className="form-select custom-dark-input" id="status">
-                  <option selected disabled>Available</option>
-                  <option>Rented</option>
-                  <option>Maintenance</option>
+                <select className="form-select custom-dark-input" value={status} onChange={(e) => setStatus(e.target.value)}>
+                  <option selected disabled>Select</option>
+                  <option>AVAILABLE</option>
+                  <option>RENTED</option>
+                  <option>MAINTENANCE</option>
                 </select>
               </div>
             </div>
@@ -120,27 +354,25 @@ function AdminManageVehicles() {
             <div className="row g-4 mb-4">
               <div className="col-md-6">
                 <label className="text-light mb-2 small fw-bold">Description of Vehicle</label>
-                <select className="form-select custom-dark-input" id="descType">
-                  <option>All</option>
-                </select>
-              </div>
-              <div className="col-md-6">
-                <label className="text-light mb-2 small fw-bold">Description of Vehicle</label>
-                <input type="text" className="form-control custom-dark-input" id="description" placeholder="Description of Vehicle" />
+                <input className="form-select custom-dark-input" id="descType" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Add Description" />
               </div>
             </div>
 
             {/* Action Buttons */}
             <div className="d-flex flex-row gap-3 mt-4" style={{ width: "130px" }}>
-              <button className="btn btn-warning fw-bold text-dark border-0">Add</button>
-              <button className="btn btn-warning fw-bold text-dark border-0">Update</button>
+              <button className="btn btn-warning fw-bold text-dark border-0" onClick={handleAdd}>
+                Add
+              </button>
+              <button className="btn btn-warning fw-bold text-dark border-0" onClick={handleUpdate}>
+                Update
+              </button>
             </div>
           </form>
         </div>
-      </div>
+      </div >
 
       {/* Custom Scoped CSS */}
-      <style>{`
+      < style > {`
         .custom-dark-input {
           background-color: #2a2a2a !important;
           border: 1px solid #444 !important;
@@ -162,8 +394,8 @@ function AdminManageVehicles() {
           background-color: #dba514 !important;
           transform: scale(1.02);
         }
-      `}</style>
-    </div>
+      `}</style >
+    </div >
   );
 }
 

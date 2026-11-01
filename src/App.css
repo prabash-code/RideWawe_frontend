@@ -1,3 +1,14 @@
 .list-group-item {
   background-color: rgb(209, 215, 215) !important;
 }
+
+.dark-input::placeholder {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.dark-input:focus {
+  background-color: #0f172a !important;
+  color: #fff !important;
+  border-color: #ffb400 !important;
+  box-shadow: 0 0 0 0.25rem rgba(255, 180, 0, 0.25) !important;
+}

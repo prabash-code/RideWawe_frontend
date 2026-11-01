@@ -20,6 +20,12 @@ import ChangePw from './pages/ChangePw'
 import AdminManageVehicles from './pages/AdminManageVehicles'
 import AdminHome from './pages/AdminHome'
 import CarListning from './pages/CarListning'
+import BookingConformation from './pages/BookingConformation'
+import CarView from './pages/carView'
+import Payments from './pages/Payments'
+import FeedbackForm from './pages/FeedbackForm'
+import CarRates from './pages/CarRates'
+
 
 
 
@@ -27,7 +33,7 @@ function App({ show }) {
 
   return (
     <>
-            <Router>
+      <Router>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path='/Home' element={<Home />} />
@@ -40,32 +46,39 @@ function App({ show }) {
 
           {/* admin */}
 
-          <Route path='/Admin' element={<AdminHome/>} />
+          <Route path='/Admin' element={<AdminHome />} />
           <Route path='/BookingsAdmin' element={<AdminBookings />} />
           <Route path='/ManageAdmin' element={<AdminManageVehicles />} />
           <Route path='/PaymentsAdmin' element={<AdminPayments />} />
           <Route path='/ReportsAdmin' element={<AdminReports />} />
-          <Route path='/Home' element={<Home/>} />
+
 
           {/* Customer */}
-         <Route path='/CustomerHome' element={<CustomerHome/>} />
+          <Route path='/CustomerHome' element={<CustomerHome />} />
           <Route path='/BookingsCustomer' element={<CustomerBookings />} />
           <Route path='/PaymentsCustomer' element={<CustomerPayments />} />
           <Route path='/LogoutCustomer' element={<Home />} />
-         
+
           {/* Forgot passwod form */}
           <Route path='/ForgotPw' element={<ForgotPw />} />
 
           {/* Change Password */}
-          <Route path='/ChangePw' element={<ChangePw/>} />
+          <Route path='/ChangePw' element={<ChangePw />} />
 
           {/* route to  car listnings */}
-          <Route path='/CarListning' element={<CarListning/>} />
+          <Route path='/CarListning' element={<CarListning />} />
           {/* add vehicle */}
-            <Route path='/AdminManageVehicles' element={<AdminManageVehicles/>} />
-            
-         
+          {/* <Route path='/AdminManageVehicles' element={<AdminManageVehicles/>} /> */}
+          <Route path='/ManageAdmin/:id' element={<AdminManageVehicles />} />
+          <Route path='/BookingConformation/:id' element={<BookingConformation />} />
+          <Route path='/CarView' element={<CarView />} />
+          <Route path='/CustomerHome/:id' element={<CustomerHome />} />
+          <Route path='/payments/:bookingId' element={<Payments />} />
+          <Route path='/feedback' element={<FeedbackForm />} />
+          <Route path='/carRates/:id' element={<CarRates />} />
+
         </Routes>
+
       </Router>
     </>
   )
