@@ -2,7 +2,7 @@ name: React Frontend CI
 
 on:
   push:
-    branches: [ "main", "master" ] 
+    branches: [ "main", "master" , "dev" ] 
   pull_request:
     branches: [ "main", "master" ]
 
