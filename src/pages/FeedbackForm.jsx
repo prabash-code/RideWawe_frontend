@@ -5,34 +5,31 @@ const FeedbackForm = () => {
     // const [feedback, setFeedback] = useState({});
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [rate, setRate] = useState("");
+    const [rate, setRate] = useState("5");
     const [review, setReview] = useState("");
-
-
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        try{
-                    const payLoad = {
-            name: name,
-            email: email,
-            ratings: Number(rate),
-            review: review
+        try {
+            const payLoad = {
+                name: name,
+                email: email,
+                ratings: Number(rate) || 5,
+                review: review
+            };
 
+            await axiosInstance.post("/feedback", payLoad);
+            console.log("Feedback Submitted:", payLoad);
+            alert("Thank you for your feedback!");
+            setName("");
+            setEmail("");
+            setRate("5");
+            setReview("");
+        } catch (err) {
+            console.error("Error submitting feedback:", err);
+            alert("Feedback not send !");
         }
-
-        await axiosInstance.post("/feedback",payLoad);
-
-        console.log("Feedback Submitted:");
-        alert("Thank you for your feedback!");
-        }catch(err){
-                  console.error("Error:", err);
-      alert("Feedback not send !");
-
-        }
-
     };
 
     return (
@@ -49,6 +46,7 @@ const FeedbackForm = () => {
                         <input
                             type="text"
                             name="customerName"
+                            value={name}
                             className="form-control p-3 bg-light border-0 rounded-3"
                             placeholder="Enter your name"
                             onChange={(e) => setName(e.target.value)}
@@ -61,6 +59,7 @@ const FeedbackForm = () => {
                         <input
                             type="email"
                             name="customerEmail"
+                            value={email}
                             className="form-control p-3 bg-light border-0 rounded-3"
                             placeholder="Enter your email"
                             onChange={(e) => setEmail(e.target.value)}
@@ -72,6 +71,7 @@ const FeedbackForm = () => {
                         <label className="form-label fw-bold small text-uppercase">Rating</label>
                         <select
                             name="rating"
+                            value={rate}
                             className="form-select p-3 bg-light border-0 rounded-3 fw-bold text-warning"
                             onChange={(e) => setRate(e.target.value)}
                         >
@@ -87,6 +87,7 @@ const FeedbackForm = () => {
                         <label className="form-label fw-bold small text-uppercase">Your Review</label>
                         <textarea
                             name="comment"
+                            value={review}
                             rows="4"
                             className="form-control p-3 bg-light border-0 rounded-3"
                             placeholder="How was your ride?"

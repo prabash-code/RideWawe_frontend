@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const Contact = () => {
     const [message, setMessage] = useState({
@@ -16,12 +17,12 @@ const Contact = () => {
     };
 
     return (
-     
-        <div style={{ backgroundColor: "#fdfdfd" }}>
-          <Navbar/>
+        <div style={{ backgroundColor: "#0b0f19", color: "#f8fafc", minHeight: "100vh" }}>
+            <Navbar/>
+
             {/* 1. Header Hero - Inspired by image_448466.jpg */}
             <div style={{
-                backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=2070')`,
+                backgroundImage: `linear-gradient(rgba(11,15,25,0.7), rgba(11,15,25,0.85)), url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=2070')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 height: "40vh",
@@ -29,34 +30,48 @@ const Contact = () => {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "white"
+                color: "white",
+                borderBottom: "1px solid rgba(255, 255, 255, 0.08)"
             }}>
-                <h1 className="display-4 fw-bold">Contact Us</h1>
-                <p className="opacity-75">Have a question? We are here to help you 24/7.</p>
+                <h1 className="display-4 fw-bold text-white">Contact Us</h1>
+                <p className="text-white-50 mb-0">Have a question? We are here to help you 24/7.</p>
             </div>
 
-         
-            <div className="container mt-n5 position-relative" style={{ marginTop: "-50px", zIndex: 10 }}>
+            {/* 2. Top Info Cards */}
+            <div className="container mt-n5 position-relative" style={{ marginTop: "-45px", zIndex: 10 }}>
                 <div className="row g-4 text-center">
                     {[
                         { icon: "📞", title: "Call Us", detail: "+9477777574" },
                         { icon: "📧", title: "Email Us", detail: "ridewawe@gmail.com" },
-                        { icon: "📍", title: "Visit Us", detail: "No.26,Main Street, Galle" }
+                        { icon: "📍", title: "Visit Us", detail: "No.26, Main Street, Galle" }
                     ].map((item, i) => (
                         <div className="col-md-4" key={i}>
-                            <div className="card border-0 shadow-sm p-4 rounded-4 h-100">
+                            <div
+                                className="card border-0 shadow-lg p-4 rounded-4 h-100"
+                                style={{
+                                    backgroundColor: "#1e293b",
+                                    color: "#fff",
+                                    border: "1px solid rgba(255, 255, 255, 0.08)"
+                                }}
+                            >
                                 <div className="display-6 mb-2">{item.icon}</div>
-                                <h6 className="fw-bold text-uppercase small text-muted">{item.title}</h6>
-                                <p className="mb-0 fw-bold">{item.detail}</p>
+                                <h6 className="fw-bold text-uppercase small text-white-50">{item.title}</h6>
+                                <p className="mb-0 fw-bold text-warning">{item.detail}</p>
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
 
- 
-            <div className="container py-5 my-5">
-                <div className="row g-0 shadow-lg rounded-5 overflow-hidden">
+            {/* 3. Map & Form Section */}
+            <div className="container py-5 my-4">
+                <div
+                    className="row g-0 shadow-lg rounded-5 overflow-hidden"
+                    style={{
+                        backgroundColor: "#1e293b",
+                        border: "1px solid rgba(255, 255, 255, 0.08)"
+                    }}
+                >
                     {/* Map Side */}
                     <div className="col-lg-6">
                         <iframe 
@@ -71,32 +86,83 @@ const Contact = () => {
                     </div>
 
                     {/* Form Side */}
-                    <div className="col-lg-6 bg-white p-5">
-                        <h2 className="fw-bold mb-2">Send Message</h2>
-                        <p className="text-muted mb-4 small">Have a query? Submit to us here.</p>
+                    <div className="col-lg-6 p-4 p-md-5" style={{ backgroundColor: "#1e293b" }}>
+                        <h2 className="fw-bold mb-2 text-white">Send Message</h2>
+                        <p className="text-white-50 mb-4 small">Have a query? Submit to us here.</p>
                         
                         <form>
                             <div className="row g-3">
                                 <div className="col-md-6">
-                                    <input type="text" name="firstName" className="form-control bg-light border-0 p-3" placeholder="First Name" onChange={handleChange} />
+                                    <label className="form-label text-white fw-semibold small mb-1">First Name</label>
+                                    <input
+                                        type="text"
+                                        name="firstName"
+                                        className="form-control text-white dark-input p-3 border-0"
+                                        style={{ backgroundColor: "#0f172a", border: "1px solid rgba(255, 255, 255, 0.15)" }}
+                                        placeholder="Enter your first name"
+                                        onChange={handleChange}
+                                    />
                                 </div>
                                 <div className="col-md-6">
-                                    <input type="text" name="lastName" className="form-control bg-light border-0 p-3" placeholder="Last Name" onChange={handleChange} />
+                                    <label className="form-label text-white fw-semibold small mb-1">Last Name</label>
+                                    <input
+                                        type="text"
+                                        name="lastName"
+                                        className="form-control text-white dark-input p-3 border-0"
+                                        style={{ backgroundColor: "#0f172a", border: "1px solid rgba(255, 255, 255, 0.15)" }}
+                                        placeholder="Enter your last name"
+                                        onChange={handleChange}
+                                    />
                                 </div>
                                 <div className="col-md-6">
-                                    <input type="email" name="email" className="form-control bg-light border-0 p-3" placeholder="Your Email" onChange={handleChange} />
+                                    <label className="form-label text-white fw-semibold small mb-1">Your Email</label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        className="form-control text-white dark-input p-3 border-0"
+                                        style={{ backgroundColor: "#0f172a", border: "1px solid rgba(255, 255, 255, 0.15)" }}
+                                        placeholder="Enter your email"
+                                        onChange={handleChange}
+                                    />
                                 </div>
                                 <div className="col-md-6">
-                                    <input type="text" name="phone" className="form-control bg-light border-0 p-3" placeholder="Phone No." onChange={handleChange} />
+                                    <label className="form-label text-white fw-semibold small mb-1">Phone No.</label>
+                                    <input
+                                        type="text"
+                                        name="phone"
+                                        className="form-control text-white dark-input p-3 border-0"
+                                        style={{ backgroundColor: "#0f172a", border: "1px solid rgba(255, 255, 255, 0.15)" }}
+                                        placeholder="Enter your phone number"
+                                        onChange={handleChange}
+                                    />
                                 </div>
                                 <div className="col-12">
-                                    <input type="text" name="subject" className="form-control bg-light border-0 p-3" placeholder="Subject" onChange={handleChange} />
+                                    <label className="form-label text-white fw-semibold small mb-1">Subject</label>
+                                    <input
+                                        type="text"
+                                        name="subject"
+                                        className="form-control text-white dark-input p-3 border-0"
+                                        style={{ backgroundColor: "#0f172a", border: "1px solid rgba(255, 255, 255, 0.15)" }}
+                                        placeholder="Enter subject"
+                                        onChange={handleChange}
+                                    />
                                 </div>
                                 <div className="col-12">
-                                    <textarea name="text" rows="4" className="form-control bg-light border-0 p-3" placeholder="Question or Request" onChange={handleChange}></textarea>
+                                    <label className="form-label text-white fw-semibold small mb-1">Question or Request</label>
+                                    <textarea
+                                        name="text"
+                                        rows="4"
+                                        className="form-control text-white dark-input p-3 border-0"
+                                        style={{ backgroundColor: "#0f172a", border: "1px solid rgba(255, 255, 255, 0.15)" }}
+                                        placeholder="Write your question or request here..."
+                                        onChange={handleChange}
+                                    ></textarea>
                                 </div>
                                 <div className="col-12 mt-4">
-                                    <button type="button" className="btn btn-warning w-100 py-3 fw-bold rounded-pill shadow-sm" style={{ backgroundColor: "#ff8c00", color: "white", border: "none" }}>
+                                    <button
+                                        type="button"
+                                        className="btn btn-warning w-100 py-3 fw-bold rounded-pill shadow"
+                                    >
                                         SEND MESSAGE
                                     </button>
                                 </div>
@@ -105,6 +171,8 @@ const Contact = () => {
                     </div>
                 </div>
             </div>
+
+            <Footer />
         </div>
     );
 };

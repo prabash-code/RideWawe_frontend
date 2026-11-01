@@ -62,13 +62,11 @@ const{id}=useParams();
     if (!overallRating) {
       alert("Please select overall rating!");
       return;
-    }
+    } 
 
     try {
       setLoading(true);
-
       await axiosInstance.post(`/ratings/${booking.carId}?rating=${overallRating}&userId=${booking.customerId}`);
-
       alert("Review submitted successfully!");
       navigate("/CustomerHome");
 
